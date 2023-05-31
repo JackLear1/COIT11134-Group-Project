@@ -1,13 +1,25 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package jjdcontracting.finalproject;
 
-/**
- *
- * @author Joker
- */
 public class PassengerVehicle {
-    
+
+    private int passengerSeats;
+    boolean manualTransmission = true;
+
+    public int getPassengerSeats() {
+        return passengerSeats;
+    }
+
+    public void setPassengerSeats(int passengerSeats) {
+        this.passengerSeats = passengerSeats;
+    }
+
+    public boolean isManualTransmission() {
+        return manualTransmission;
+    }
+
+    public void setManualTransmission(boolean manualTransmission) {
+        this.manualTransmission = manualTransmission;
+    }
+
 }
