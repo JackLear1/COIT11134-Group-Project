@@ -1,4 +1,3 @@
-
 package jjdcontracting.finalproject;
 
 public class User {
@@ -10,6 +9,14 @@ public class User {
     private String licenseExpiry;
     boolean manualLicense = true;
     boolean busLicense = true;
+
+    public User(String staffName, int staffID, int staffExt, String licenseNumber, String licenseExpiry) {
+        this.staffName = staffName;
+        this.staffID = staffID;
+        this.staffExt = staffExt;
+        this.licenseNumber = licenseNumber;
+        this.licenseExpiry = licenseExpiry;
+    }
 
     public String getStaffName() {
         return staffName;
