@@ -7,10 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-// Deslea test
-/**
- * JavaFX App
- */
+
 public class App extends Application {
     
     /*arrayList Names
@@ -42,7 +39,5 @@ public class App extends Application {
         launch();
     }
 
-    //Test
-    //jenna testing
-    
+ 
 }
