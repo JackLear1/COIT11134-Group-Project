@@ -13,8 +13,13 @@ import java.io.IOException;
  */
 public class App extends Application {
     
-    //new Test
+    /*arrayList Names
     
+    user
+    uses
+    vehicle    
+    
+    */
     private static Scene scene;
 
     @Override
