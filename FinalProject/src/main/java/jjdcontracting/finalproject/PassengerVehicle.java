@@ -1,10 +1,13 @@
-
 package jjdcontracting.finalproject;
 
 public class PassengerVehicle {
 
     private int passengerSeats;
     boolean manualTransmission = true;
+
+    public PassengerVehicle(int passengerSeats) {
+        this.passengerSeats = passengerSeats;
+    }
 
     public int getPassengerSeats() {
         return passengerSeats;
