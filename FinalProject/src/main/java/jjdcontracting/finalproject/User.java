@@ -69,9 +69,9 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" + "Staff Members Name=" + staffName + ", Staff Members ID=" + staffID
-                + ", Staff Members Extension=" + staffExt + ", Staff Members License Number=" + licenseNumber
-                + ", License Expiry=" + licenseExpiry + ", Does the staff member have a manual license?" + manualLicense
+        return "User{" + "Staff Members Name:" + staffName + ", Staff Members ID:" + staffID
+                + ", Staff Members Extension:" + staffExt + ", Staff Members License Number:" + licenseNumber
+                + ", License Expiry:" + licenseExpiry + ", Does the staff member have a manual license?" + manualLicense
                 + ", Does the staff member have a bus license?" + busLicense + '}';
     }
 
