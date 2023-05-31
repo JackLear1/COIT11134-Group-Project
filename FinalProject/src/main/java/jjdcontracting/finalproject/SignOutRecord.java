@@ -10,6 +10,15 @@ public class SignOutRecord extends User{
     LocalDateTime dateTimeOut = LocalDateTime.now();
     LocalDateTime dateTimeBack = LocalDateTime.now();
 
+    public SignOutRecord(int signOutID, String vehicleID, String purpose, String staffName, int staffID, int staffExt, String licenseNumber, String licenseExpiry) {
+        super(staffName, staffID, staffExt, licenseNumber, licenseExpiry);
+        this.signOutID = signOutID;
+        this.vehicleID = vehicleID;
+        this.purpose = purpose;
+    }
+
+    
+    
     public int getSignOutID() {
         return signOutID;
     }
