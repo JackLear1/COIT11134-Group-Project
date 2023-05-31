@@ -1,4 +1,3 @@
-
 package jjdcontracting.finalproject;
 
 public class Vehicle {
@@ -8,6 +7,13 @@ public class Vehicle {
     private String vehicleModel;
     private int vehicleYear;
     boolean serviceUpToDate = true;
+
+    public Vehicle(String vehiclePlate, String vehicleMake, String vehicleModel, int vehicleYear) {
+        this.vehiclePlate = vehiclePlate;
+        this.vehicleMake = vehicleMake;
+        this.vehicleModel = vehicleModel;
+        this.vehicleYear = vehicleYear;
+    }
 
     public String getVehiclePlate() {
         return vehiclePlate;
