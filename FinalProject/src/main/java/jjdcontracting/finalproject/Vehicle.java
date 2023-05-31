@@ -1,13 +1,52 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package jjdcontracting.finalproject;
 
-/**
- *
- * @author Joker
- */
 public class Vehicle {
-    
+
+    private String vehiclePlate;
+    private String vehicleMake;
+    private String vehicleModel;
+    private int vehicleYear;
+    boolean serviceUpToDate = true;
+
+    public String getVehiclePlate() {
+        return vehiclePlate;
+    }
+
+    public void setVehiclePlate(String vehiclePlate) {
+        this.vehiclePlate = vehiclePlate;
+    }
+
+    public String getVehicleMake() {
+        return vehicleMake;
+    }
+
+    public void setVehicleMake(String vehicleMake) {
+        this.vehicleMake = vehicleMake;
+    }
+
+    public String getVehicleModel() {
+        return vehicleModel;
+    }
+
+    public void setVehicleModel(String vehicleModel) {
+        this.vehicleModel = vehicleModel;
+    }
+
+    public int getVehicleYear() {
+        return vehicleYear;
+    }
+
+    public void setVehicleYear(int vehicleYear) {
+        this.vehicleYear = vehicleYear;
+    }
+
+    public boolean isServiceUpToDate() {
+        return serviceUpToDate;
+    }
+
+    public void setServiceUpToDate(boolean serviceUpToDate) {
+        this.serviceUpToDate = serviceUpToDate;
+    }
+
 }
