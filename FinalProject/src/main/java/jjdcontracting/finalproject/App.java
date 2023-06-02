@@ -14,7 +14,7 @@ public class App extends Application {
     
     user
     uses
-    vehicle    
+    vehicle   
     
     */
     private static Scene scene;
