@@ -17,26 +17,31 @@ public class ViewSingleCarUsesController implements Initializable {
     }    
     
     //will allow user to search through car use records
+    @FXML
     private void Search() throws IOException {
         
     }
     
     //will save edits that user has made to record
+    @FXML
     private void Save() throws IOException {
         
     }
     
     //will allow user to edit currently viewed record
+    @FXML
     private void Edit() throws IOException {
         
     }
     
     //will delete currently viewed record
+    @FXML
     private void Delete() throws IOException {
         
     }
     
     //will take user back to MainMenu
+    @FXML
     private void Back() throws IOException {
         App.setRoot("MainMenu");
     }

@@ -16,6 +16,7 @@ public class CreateCarUseRecordController implements Initializable {
         
     }    
     //saves the values inputed by user
+    @FXML
     private void Save() throws IOException {
         
         //when the user presses the save button, this will get the values from each text field
@@ -33,6 +34,7 @@ public class CreateCarUseRecordController implements Initializable {
     }
     
     //will take user back to MainMenu
+    @FXML
     private void Back() throws IOException {
         App.setRoot("MainMenu");
     }

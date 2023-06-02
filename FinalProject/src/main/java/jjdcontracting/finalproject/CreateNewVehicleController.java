@@ -17,11 +17,13 @@ public class CreateNewVehicleController implements Initializable {
         
     }    
     
+    @FXML
     private void Save() throws IOException {
         
     }
     
     //will take user back to MainMenu
+    @FXML
     private void Back() throws IOException {
         App.setRoot("MainMenu");
     }

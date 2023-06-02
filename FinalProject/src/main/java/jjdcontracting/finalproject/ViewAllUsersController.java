@@ -18,6 +18,7 @@ public class ViewAllUsersController implements Initializable {
     }    
     
     //will take user back to MainMenu
+    @FXML
     private void Back() throws IOException {
         App.setRoot("MainMenu");
     }
