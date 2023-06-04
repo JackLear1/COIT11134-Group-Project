@@ -1,12 +1,14 @@
 package jjdcontracting.finalproject;
 
-public class PassengerVehicle {
+public class PassengerVehicle extends Vehicle{
 
     private int passengerSeats;
-    boolean manualTransmission = true;
+    boolean manualTransmission;
 
-    public PassengerVehicle(int passengerSeats) {
+    public PassengerVehicle(String vehiclePlate, String vehicleMake, String vehicleModel, int vehicleYear, int passengerSeats, Boolean isManualTransmission) {
+        super(vehiclePlate, vehicleMake, vehicleModel, vehicleYear);
         this.passengerSeats = passengerSeats;
+        this.manualTransmission = isManualTransmission;
     }
 
     public int getPassengerSeats() {

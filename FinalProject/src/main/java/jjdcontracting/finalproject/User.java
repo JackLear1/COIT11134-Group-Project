@@ -7,8 +7,8 @@ public class User {
     private int staffExt;
     private String licenseNumber;
     private String licenseExpiry;
-    boolean manualLicense = true;
-    boolean busLicense = true;
+    boolean manualLicense = false;
+    boolean busLicense = false;
 
     public User(String staffName, int staffID, int staffExt, String licenseNumber, String licenseExpiry) {
         this.staffName = staffName;

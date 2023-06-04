@@ -8,29 +8,90 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 public class CreateCarUseRecordController implements Initializable {
+    
+    //captures the values inputed by user
+    
+    // TODO: This was set up following the screens in the project plan
+    // Field are not 1:1 for fields in the SignOutRecord class (eg signoutID is envisaged)
+    // Reconciliation/cleanup of these needed, also knock on changes to the ClearForm() method later in this class
+    
+    @FXML
+    private TextField createuse_BookingID;
+    @FXML
+    private TextField createuse_StaffID;
+    @FXML
+    private TextField createuse_VehicleID;
+    @FXML
+    private TextField createuse_DateTimeOut;
+    @FXML
+    private TextField createuse_DateTimeIn;
+    @FXML
+    private TextArea createuse_Purpose;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
     }    
-    //saves the values inputed by user
+
+    
     @FXML
     private void Save() throws IOException {
         
-        //when the user presses the save button, this will get the values from each text field
+        try {
+            
+            //when the user presses the save button, this will get the values from each text field
+              
+            String bookingID = createuse_BookingID.getText();
+            int staffID = Integer.parseInt(createuse_StaffID.getText());
+            String vehicleID = createuse_VehicleID.getText();
+            String purpose = createuse_Purpose.getText();
+
+           
+            // TODO: Determine approach to date/time out and back. 
+            // Currently a value can be captured in the form but goes nowhere, instead current datetime is added for both in and back in the constructor (likely to be wrong).
+            // Maybe a toggle for "make sign out date now and return blank to be entered later" as default?
+
+            // TODO Validations? Probably only need to check for critical blanks. Parseint errors caught already in catch below. 
+            // Might also need a staff duplication check, or do we just tolerate duplicate entries in this version?
+
+            // TODO: Someone to look at intended usage of the SignOutRecord class and come up with appropriate insertion below
+            // Call the constructor to create the instance (may need to pull up extra info from other arrays to populate the call)
+            // Then add the created instance to the array - see similar section in CreateRegisteredUser for working example
+            // SignOutRecord newRecord = new SignOutRecord(ARGS);
+            // App.uses.add(newRecord);
+            
+            // Show success message
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Success!");
+            alert.setHeaderText("Your record was added.");
+            alert.setContentText("You can enter another record, or use Back to return to the main menu.");
+            alert.showAndWait();
+            ClearForm();
+            
+            }
+        catch(Exception e) {
+            	
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		alert.setTitle("ERROR");
+		alert.setHeaderText("Your record could not be added.");
+		alert.setContentText("Check that all fields are completed, with numbers where noted. \n\nError message: \""+e+"\".");
+		alert.showAndWait();
+            }
         
-        //String bookingID = this./*textfieldname*/.getText();
-        //String staffID = this./*textfieldname*/.getText();
-        //String vehicleID = this./*textfieldname*/.getText();
-        //String purpose = this./*textfieldname*/.getText();
-        
-        //adds the information to the arraylist
-        
-        //SignOutRecord record = new SignOutRecord();
-        //App./*userArray*/.add(record);
-        
+    }
+    
+        @FXML
+    private void ClearForm() {
+        createuse_BookingID.clear();
+        createuse_StaffID.clear();
+        createuse_VehicleID.clear();
+        createuse_DateTimeOut.clear();
+        createuse_DateTimeIn.clear();
+        createuse_Purpose.clear();
     }
     
     //will take user back to MainMenu
