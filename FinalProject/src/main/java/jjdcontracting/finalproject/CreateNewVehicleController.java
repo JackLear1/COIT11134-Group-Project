@@ -65,13 +65,13 @@ public class CreateNewVehicleController implements Initializable {
             //TODO Validations? Probably only need to check for critical blanks. Parseint errors caught already in catch below.
 
             if (vehicleTypePass == true) {
-                PassengerVehicle newvehicle = new PassengerVehicle(vehicleID, vehicleMake, vehicleModel, vehicleYear, vehicleSeats, vehicleTransManual);
+                PassengerVehicle newvehicle = new PassengerVehicle(vehicleID, vehicleMake, vehicleModel, vehicleYear, "Passenger Vehicle", true, vehicleSeats, vehicleTransManual);
                 newvehicle.setServiceUpToDate(vehicleServicingYes);
                 App.vehicle.add(newvehicle);
             }
             
             else { 
-                Bus newvehicle = new Bus(vehicleID, vehicleMake, vehicleModel, vehicleYear, vehicleWheelchairYes); 
+                Bus newvehicle = new Bus(vehicleID, vehicleMake, vehicleModel, vehicleYear, "Bus", true, vehicleWheelchairYes); 
                 newvehicle.setServiceUpToDate(vehicleServicingYes);
                 App.vehicle.add(newvehicle);
             }
@@ -79,7 +79,7 @@ public class CreateNewVehicleController implements Initializable {
             // Show success message
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success!");
-            alert.setHeaderText("Your record was added.");
+            alert.setHeaderText("Your record was added, and the new vehicle has been recorded as Available. You can edit this in single vehicle view.");
             alert.setContentText("You can enter another record, or use Back to return to the main menu.");
             alert.showAndWait();
             ClearForm();

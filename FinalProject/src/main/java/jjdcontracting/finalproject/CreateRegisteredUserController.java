@@ -61,6 +61,17 @@ public class CreateRegisteredUserController implements Initializable {
             if (userLicensedBus == true) { newuser.setBusLicense(true);}
             App.user.add(newuser);
             
+            // test verify 
+            System.out.print(newuser.getStaffName());
+            System.out.print(newuser.getStaffID());
+            System.out.print(newuser.getStaffExt());
+            System.out.print(newuser.getLicenseNumber());
+            System.out.print(newuser.getLicenseExpiry());
+            System.out.print(newuser.isManualLicense());
+            System.out.print(newuser.isBusLicense());
+            
+            
+            
             // Show success message
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success!");

@@ -62,14 +62,14 @@
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Vehicle Model:" GridPane.rowIndex="3" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Vehicle Year:" GridPane.rowIndex="4" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="No of Seats in Vehicle:" GridPane.rowIndex="5" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Manual/Automatic" GridPane.rowIndex="6" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Manual/Automatic:" GridPane.rowIndex="6" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Service Up To Date:" GridPane.rowIndex="7" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Wheelchair Accessible:" GridPane.rowIndex="8" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Wheelchair Accessible (buses):" GridPane.rowIndex="8" />
                   <TextField fx:id="createvehicle_Plate" GridPane.columnIndex="1" />
                   <TextField fx:id="createvehicle_Make" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <TextField fx:id="createvehicle_Model" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <TextField fx:id="createvehicle_Year" promptText="Must be a number" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <TextField fx:id="createvehicle_Seats" promptText="Must be a number, leave blank for bus" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <TextField fx:id="createvehicle_Seats" promptText="Must be a number,  enter zero (0) for bus" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
                         <RadioButton fx:id="createvehicle_Passenger" mnemonicParsing="false" selected="true" text="Passenger Vehicle">

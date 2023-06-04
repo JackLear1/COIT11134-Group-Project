@@ -5,8 +5,8 @@ public class Bus extends Vehicle {
 
     boolean wheelchairAccessible;
     
-    public Bus(String vehiclePlate, String vehicleMake, String vehicleModel, int vehicleYear, boolean wheelchairAccessible) {
-        super(vehiclePlate, vehicleMake, vehicleModel, vehicleYear);
+    public Bus(String vehiclePlate, String vehicleMake, String vehicleModel, int vehicleYear, String vehicleCategory, Boolean isAvailable, boolean wheelchairAccessible) {
+        super(vehiclePlate, vehicleMake, vehicleModel, vehicleYear, vehicleCategory, isAvailable);
         this.wheelchairAccessible = wheelchairAccessible;
     }
     

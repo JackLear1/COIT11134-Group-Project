@@ -5,8 +5,8 @@ public class PassengerVehicle extends Vehicle{
     private int passengerSeats;
     boolean manualTransmission;
 
-    public PassengerVehicle(String vehiclePlate, String vehicleMake, String vehicleModel, int vehicleYear, int passengerSeats, Boolean isManualTransmission) {
-        super(vehiclePlate, vehicleMake, vehicleModel, vehicleYear);
+    public PassengerVehicle(String vehiclePlate, String vehicleMake, String vehicleModel, int vehicleYear, String vehicleCategory, Boolean isAvailable, int passengerSeats, Boolean isManualTransmission) {
+        super(vehiclePlate, vehicleMake, vehicleModel, vehicleYear, vehicleCategory, isAvailable);
         this.passengerSeats = passengerSeats;
         this.manualTransmission = isManualTransmission;
     }
