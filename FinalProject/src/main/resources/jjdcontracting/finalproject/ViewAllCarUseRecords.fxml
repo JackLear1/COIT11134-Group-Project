@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="jjdcontracting.finalproject.ViewAllCarUseRecordsController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jjdcontracting.finalproject.ViewAllCarUseRecordsController">
     <children>
       <AnchorPane maxHeight="35.0" minHeight="35.0" prefHeight="35.0" style="-fx-background-color: #cfcfcf;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -45,12 +45,12 @@
                   </Text>
                   <TableView fx:id="displayUsesTable" layoutY="24.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="72.0" AnchorPane.topAnchor="24.0">
                     <columns>
-                        <TableColumn fx:id="displayTBA1" prefWidth="100.0" text="TBA1" />
-                      <TableColumn fx:id="displayTBA2" prefWidth="100.0" text="TBA2" />
-                      <TableColumn fx:id="displayTBA3" prefWidth="100.0" text="TBA3" />
-                        <TableColumn fx:id="displayTBA4" prefWidth="100.0" text="TBA4" />
-                        <TableColumn fx:id="displayTBA5" prefWidth="100.0" text="TBA5" />
-                        <TableColumn fx:id="displayTBA6" prefWidth="100.0" text="TBA6" />
+                        <TableColumn fx:id="displaySignOutID" prefWidth="100.0" text="Sign Out ID" />
+                      <TableColumn fx:id="displayStaffID" prefWidth="100.0" text="Staff ID" />
+                      <TableColumn fx:id="displayvehicleID" prefWidth="100.0" text="Vehicle ID" />
+                        <TableColumn fx:id="displayDateTimeOut" prefWidth="100.0" text="Date/Time Out" />
+                        <TableColumn fx:id="displayDateTimeIn" prefWidth="100.0" text="Date/Time In" />
+                        <TableColumn fx:id="displayPurpose" prefWidth="100.0" text="Purpose" />
                     </columns>
                   </TableView>
                </children>

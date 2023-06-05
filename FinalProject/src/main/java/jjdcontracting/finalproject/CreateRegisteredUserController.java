@@ -57,9 +57,11 @@ public class CreateRegisteredUserController implements Initializable {
             //TODO Validations? Probably only need to check for critical blanks. Parseint errors caught already in catch below.
 
             User newuser = new User(userName, userID, userExt, userLicenseNo, userLicenseExpiry); 
-            if(userLicensedManual == true) { newuser.setManualLicense(true);}
+            if (userLicensedManual == true) { newuser.setManualLicense(true);}
             if (userLicensedBus == true) { newuser.setBusLicense(true);}
             App.user.add(newuser);
+            
+            DataHandler.writeData(App.user, "UserRecords.ser");
             
             // test verify 
             System.out.print(newuser.getStaffName());

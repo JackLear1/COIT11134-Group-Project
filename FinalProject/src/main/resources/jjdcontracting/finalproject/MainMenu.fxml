@@ -60,17 +60,17 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#ViewAllCarUseRecordsBtn" prefWidth="150.0" style="-fx-background-color: #A9D18E;" text="View All Car Uses">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Button>
                   <Button mnemonicParsing="false" onAction="#ViewSingleCarUseBtn" prefWidth="150.0" style="-fx-background-color: #A9D18E;" text="View Single Car Use">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#ViewAllUsersBtn" prefWidth="150.0" style="-fx-background-color: #A9D18E;" text="View All Users">
+                  <Button mnemonicParsing="false" onAction="#ViewSingleUserBtn" prefWidth="150.0" style="-fx-background-color: #A9D18E;" text="View Single User">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#ViewSingleVehicleBtn" prefWidth="150.0" style="-fx-background-color: #A9D18E;" text="View Single Vehicle">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -87,17 +87,17 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
+                  <Button mnemonicParsing="false" onAction="#ViewAllCarUseRecordsBtn" prefWidth="150.0" style="-fx-background-color: #A9D18E;" text="View All Car Uses">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#ViewAllUsersBtn" prefWidth="150.0" style="-fx-background-color: #A9D18E;" text="View All Users">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
                   <Button mnemonicParsing="false" onAction="#ViewAllVehiclesBtn" prefWidth="150.0" style="-fx-background-color: #A9D18E;" text="View All Vehicles">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" onAction="#ViewSingleVehicleBtn" prefWidth="150.0" style="-fx-background-color: #A9D18E;" text="View Single Vehicle">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" onAction="#ViewSingleUserBtn" prefWidth="150.0" style="-fx-background-color: #A9D18E;" text="View Single User">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>

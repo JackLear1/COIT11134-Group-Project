@@ -26,17 +26,17 @@ public class ViewAllCarUseRecordsController implements Initializable {
     @FXML
     private TableView<SignOutRecord> displayUsesTable;
     @FXML
-    private TableColumn<SignOutRecord, String> displayTBA1;
+    private TableColumn<SignOutRecord, String> displaySignOutID;
     @FXML
-    private TableColumn<SignOutRecord, String> displayTBA2;
+    private TableColumn<SignOutRecord, String> displayStaffID;
     @FXML
-    private TableColumn<SignOutRecord, String> displayTBA3;
+    private TableColumn<SignOutRecord, String> displayvehicleID;
     @FXML
-    private TableColumn<SignOutRecord, String> displayTBA4;
+    private TableColumn<SignOutRecord, String> displayDateTimeOut;
     @FXML
-    private TableColumn<SignOutRecord, Integer> displayTBA5;
+    private TableColumn<SignOutRecord, Integer> displayDateTimeIn;
     @FXML
-    private TableColumn<SignOutRecord, Boolean> displayTBA6;
+    private TableColumn<SignOutRecord, Boolean> displayPurpose;
     @FXML
     private ObservableList<SignOutRecord> usesListener;
     
@@ -49,12 +49,12 @@ public class ViewAllCarUseRecordsController implements Initializable {
         // Create listener for array
         usesListener = FXCollections.observableArrayList(App.uses);
         // Initialise Users Columns and map to class variables
-        displayTBA1.setCellValueFactory(new PropertyValueFactory<>("classAttribute1"));
-        displayTBA2.setCellValueFactory(new PropertyValueFactory<>("classAttribute2"));
-        displayTBA3.setCellValueFactory(new PropertyValueFactory<>("classAttribute3"));
-        displayTBA4.setCellValueFactory(new PropertyValueFactory<>("classAttribute4"));
-        displayTBA5.setCellValueFactory(new PropertyValueFactory<>("classAttribute5"));
-        displayTBA6.setCellValueFactory(new PropertyValueFactory<>("classAttribute6"));
+        displaySignOutID.setCellValueFactory(new PropertyValueFactory<>("signOutID"));
+        displayStaffID.setCellValueFactory(new PropertyValueFactory<>("staffID"));
+        displayvehicleID.setCellValueFactory(new PropertyValueFactory<>("vehicleID"));
+        displayDateTimeOut.setCellValueFactory(new PropertyValueFactory<>("dateTimeOut"));
+        displayDateTimeIn.setCellValueFactory(new PropertyValueFactory<>("dateTimeIn"));
+        displayPurpose.setCellValueFactory(new PropertyValueFactory<>("purpose"));
         // Set class source for TableView
         displayUsesTable.setItems(usesListener);
     }    

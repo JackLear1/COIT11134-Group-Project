@@ -1,6 +1,8 @@
 package jjdcontracting.finalproject;
 
-public class Vehicle {
+import java.io.Serializable;
+
+public class Vehicle implements Serializable{
 
     private String vehiclePlate;
     private String vehicleMake;

@@ -1,6 +1,8 @@
 package jjdcontracting.finalproject;
 
-public class PassengerVehicle extends Vehicle{
+import java.io.Serializable;
+
+public class PassengerVehicle extends Vehicle implements Serializable{
 
     private int passengerSeats;
     boolean manualTransmission;

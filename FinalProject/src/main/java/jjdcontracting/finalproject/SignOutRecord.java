@@ -1,24 +1,25 @@
-
 package jjdcontracting.finalproject;
-import java.time.LocalDateTime;
 
-public class SignOutRecord extends User{
+import java.io.Serializable;
+
+public class SignOutRecord implements Serializable{
     
     private int signOutID;
+    private int staffID;
     private String vehicleID;
     private String purpose;
-    LocalDateTime dateTimeOut = LocalDateTime.now();
-    LocalDateTime dateTimeBack = LocalDateTime.now();
+    private String dateTimeOut;
+    private String dateTimeIn;
 
-    public SignOutRecord(int signOutID, String vehicleID, String purpose, String staffName, int staffID, int staffExt, String licenseNumber, String licenseExpiry) {
-        super(staffName, staffID, staffExt, licenseNumber, licenseExpiry);
+    public SignOutRecord(int signOutID, int staffID, String vehicleID, String purpose, String dateTimeOut, String dateTimeIn) {
         this.signOutID = signOutID;
+        this.staffID = staffID;
         this.vehicleID = vehicleID;
         this.purpose = purpose;
+        this.dateTimeOut = dateTimeOut;
+        this.dateTimeIn = dateTimeIn;
     }
 
-    
-    
     public int getSignOutID() {
         return signOutID;
     }
@@ -27,6 +28,14 @@ public class SignOutRecord extends User{
         this.signOutID = signOutID;
     }
 
+    public int getStaffID() {
+        return staffID;
+    }
+
+    public void setStaffID(int staffID) {
+        this.staffID = staffID;
+    }
+    
     public String getVehicleID() {
         return vehicleID;
     }
@@ -43,42 +52,26 @@ public class SignOutRecord extends User{
         this.purpose = purpose;
     }
 
-    public LocalDateTime getDateTimeOut() {
+    public String getDateTimeOut() {
         return dateTimeOut;
     }
 
-    public void setDateTimeOut(LocalDateTime dateTimeOut) {
+    public void setDateTimeOut(String dateTimeOut) {
         this.dateTimeOut = dateTimeOut;
     }
 
-    public LocalDateTime getDateTimeBack() {
-        return dateTimeBack;
+    public String getDateTimeIn() {
+        return dateTimeIn;
     }
 
-    public void setDateTimeBack(LocalDateTime dateTimeBack) {
-        this.dateTimeBack = dateTimeBack;
-    }
-
-    public boolean isManualLicense() {
-        return manualLicense;
-    }
-
-    public void setManualLicense(boolean manualLicense) {
-        this.manualLicense = manualLicense;
-    }
-
-    public boolean isBusLicense() {
-        return busLicense;
-    }
-
-    public void setBusLicense(boolean busLicense) {
-        this.busLicense = busLicense;
+    public void setDateTimeIn(String dateTimeBack) {
+        this.dateTimeIn = dateTimeBack;
     }
 
     @Override
     public String toString() {
         return "Sign Out Reccord{" + "Sign Out ID:" + signOutID + ", Vehcile ID:" + vehicleID + ", Purpose:" + purpose +
-                ", Date & Time Out=" + dateTimeOut + ", Date & Time Back:" + dateTimeBack + '}';
+                ", Date & Time Out=" + dateTimeOut + ", Date & Time Back:" + dateTimeIn + '}';
     }
 
 

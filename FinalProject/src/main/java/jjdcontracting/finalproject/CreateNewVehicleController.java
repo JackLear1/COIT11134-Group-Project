@@ -68,12 +68,14 @@ public class CreateNewVehicleController implements Initializable {
                 PassengerVehicle newvehicle = new PassengerVehicle(vehicleID, vehicleMake, vehicleModel, vehicleYear, "Passenger Vehicle", true, vehicleSeats, vehicleTransManual);
                 newvehicle.setServiceUpToDate(vehicleServicingYes);
                 App.vehicle.add(newvehicle);
+                DataHandler.writeData(App.vehicle, "Vehicle.ser");
             }
             
             else { 
                 Bus newvehicle = new Bus(vehicleID, vehicleMake, vehicleModel, vehicleYear, "Bus", true, vehicleWheelchairYes); 
                 newvehicle.setServiceUpToDate(vehicleServicingYes);
                 App.vehicle.add(newvehicle);
+                DataHandler.writeData(App.vehicle, "Vehicle.ser");
             }
             
             // Show success message
