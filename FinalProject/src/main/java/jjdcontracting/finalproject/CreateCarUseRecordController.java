@@ -49,31 +49,35 @@ public class CreateCarUseRecordController implements Initializable {
             String dateOut = createuse_DateTimeOut.getText();
             String dateIn = createuse_DateTimeIn.getText();
             String purpose = createuse_Purpose.getText();
-
+            // First verifcation check to see if staffID exists in system
             for (int i = 0; i < App.user.size(); i++) {
                 if (App.user.get(i).getStaffID() == staffID) {
                     staffIdCheck = true;
                     break;
                 }
             }
-
+            // Second verifcation check to see if vehicles license plate exists in system
             for (int i = 0; i < App.vehicle.size(); i++) {
                 if (App.vehicle.get(i).getVehiclePlate().contentEquals(vehicleID)) {
                     vehicleIdCheck = true;
                     break;
                 }
             }
-
+            // If checks are passed it will add to the array and file
             if (staffIdCheck == true && vehicleIdCheck == true) {
+                // Call the constructor to create the instance (may need to pull up extra info from other arrays to populate the call)
+                // Then add the created instance to the array - see similar section in CreateRegisteredUser for working example
                 SignOutRecord newUse = new SignOutRecord(bookingID, staffID, vehicleID, purpose, dateOut, dateIn);
                 App.uses.add(newUse);
                 DataHandler.writeData(App.uses, "SignOutRecords.ser");
+                // Show success message
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Success!");
                 alert.setHeaderText("Your record was added.");
                 alert.setContentText("You can enter another record, or use Back to return to the main menu.");
                 alert.showAndWait();
                 ClearForm();
+            // If either check fails it will display error message and not add to the system
             } else if (staffIdCheck == false || vehicleIdCheck == false) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Unable to save");
@@ -86,14 +90,19 @@ public class CreateCarUseRecordController implements Initializable {
             // TODO: Determine approach to date/time out and back. 
             // Currently a value can be captured in the form but goes nowhere, instead current datetime is added for both in and back in the constructor (likely to be wrong).
             // Maybe a toggle for "make sign out date now and return blank to be entered later" as default?
+                // Jack here, since its asking for two seperate times/dates, I made the assumption that this was entered after the fact and as such left it to the user to input the date. Therefore, I changed both to a string for ease of use.
+                // If we have time, we coult find a way to check if the date is in the correct format.
+                
             // TODO Validations? Probably only need to check for critical blanks. Parseint errors caught already in catch below. 
             // Might also need a staff duplication check, or do we just tolerate duplicate entries in this version?
+                // Jack again, I have added a way to check if staff and vehicles are in the system and to only allow an entry if  
+                
             // TODO: Someone to look at intended usage of the SignOutRecord class and come up with appropriate insertion below
-            // Call the constructor to create the instance (may need to pull up extra info from other arrays to populate the call)
-            // Then add the created instance to the array - see similar section in CreateRegisteredUser for working example
+                // See above.
+            
             // SignOutRecord newRecord = new SignOutRecord(ARGS);
             // App.uses.add(newRecord);
-            // Show success message
+            
         } catch (Exception e) {
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

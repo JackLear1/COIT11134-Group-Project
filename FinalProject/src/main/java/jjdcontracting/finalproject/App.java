@@ -43,11 +43,10 @@ public class App extends Application {
     }
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        
+        // Methods to load files at program start
         DataHandler.loadUses("SignOutRecords.ser");
         DataHandler.loadVehicles("Vehicle.ser");
         DataHandler.loadUsers("UserRecords.ser");
-        
         launch();
     }
 

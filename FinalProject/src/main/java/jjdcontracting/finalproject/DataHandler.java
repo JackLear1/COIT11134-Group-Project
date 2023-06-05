@@ -25,6 +25,8 @@ public class DataHandler implements Serializable {
 
     // TODO: I have dropped working serialise IO methods here from my previous project
     // They aren't currently used and can be safely replaced if you have something better.
+        // writeData now in use to save to file.
+    
     // Method to write an object to a specified file
     // Modified from a tutorial at https://www.geeksforgeeks.org/serialization-in-java/
     public static void writeData(ArrayList streamArray, String filename) throws IOException {
@@ -48,6 +50,10 @@ public class DataHandler implements Serializable {
 
     // TODO: May also need a method to extract one item from an arraylist and convert it to something (eg ListView) for single-record display
     // If needed, it will be used by the ViewSingle[whatever] Controllers to display a record.
+    
+    // Jack here, added these loading methods below to load files at program start. could possibly condense to one method but I am currently focused on functionality over effeciency. could look at later if we have time.
+    
+    // Loads the SignOutRecords.ser file into the uses array
     public static void loadUses(String fileName) throws FileNotFoundException, IOException, ClassNotFoundException {
         File f = new File(fileName);
         if (f.exists() == true) {
@@ -60,7 +66,7 @@ public class DataHandler implements Serializable {
             System.out.println(fileName + " not found");
         }
     }
-
+    // Loads the UserRecords.ser file into the users array
     public static void loadUsers(String fileName) throws FileNotFoundException, IOException, ClassNotFoundException {
         File f = new File(fileName);
         if (f.exists() == true) {
@@ -73,7 +79,7 @@ public class DataHandler implements Serializable {
             System.out.println(fileName + " not found");
         }
     }
-
+    // Loads the Vehicle.ser file into the vehicle array
     public static void loadVehicles(String fileName) throws FileNotFoundException, IOException, ClassNotFoundException {
         File f = new File(fileName);
         if (f.exists() == true) {
