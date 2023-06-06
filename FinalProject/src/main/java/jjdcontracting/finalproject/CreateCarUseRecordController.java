@@ -2,7 +2,8 @@ package jjdcontracting.finalproject;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -38,8 +39,13 @@ public class CreateCarUseRecordController implements Initializable {
 
     @FXML
     private void Save() throws IOException {
+        boolean dateInCheck = false;
+        boolean dateOutCheck = false;
         boolean staffIdCheck = false;
         boolean vehicleIdCheck = false;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date dateOutFormat = null;
+        Date dateInFormat = null;
         try {
 
             //when the user presses the save button, this will get the values from each text field.
@@ -63,8 +69,18 @@ public class CreateCarUseRecordController implements Initializable {
                     break;
                 }
             }
+            //checks if the dateOut is in the correct format dd/MM/yyyy
+            dateOutFormat = sdf.parse(dateOut);
+            if (dateOut.equals(sdf.format(dateOutFormat))) {
+                dateOutCheck = true;
+            }
+            //checks if the dateIn is in the correct format dd/MM/yyyy
+            dateInFormat = sdf.parse(dateIn);
+            if (dateIn.equals(sdf.format(dateInFormat))) {
+                dateInCheck = true;
+            }
             // If checks are passed it will add to the array and file
-            if (staffIdCheck == true && vehicleIdCheck == true) {
+            if (staffIdCheck == true && vehicleIdCheck == true && dateInCheck == true && dateOutCheck == true) {
                 // Call the constructor to create the instance (may need to pull up extra info from other arrays to populate the call)
                 // Then add the created instance to the array - see similar section in CreateRegisteredUser for working example
                 SignOutRecord newUse = new SignOutRecord(bookingID, staffID, vehicleID, purpose, dateOut, dateIn);
@@ -77,7 +93,7 @@ public class CreateCarUseRecordController implements Initializable {
                 alert.setContentText("You can enter another record, or use Back to return to the main menu.");
                 alert.showAndWait();
                 ClearForm();
-            // If either check fails it will display error message and not add to the system
+                // If either check fails it will display error message and not add to the system
             } else if (staffIdCheck == false || vehicleIdCheck == false) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Unable to save");
@@ -85,30 +101,31 @@ public class CreateCarUseRecordController implements Initializable {
                 alert.setContentText("You can try to enter the record again , or use Back to return to the main menu.");
                 alert.showAndWait();
                 ClearForm();
+            } else if (dateInCheck == false || dateOutCheck == false) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Unable to save");
+                alert.setHeaderText("Your record was not added. Please ensure that the date in and date out are in the correct formats (dd/mm/yyyy).");
+                alert.setContentText("You can try to enter the record again , or use Back to return to the main menu.");
+                alert.showAndWait();
+                ClearForm();
             }
-
             // TODO: Determine approach to date/time out and back. 
             // Currently a value can be captured in the form but goes nowhere, instead current datetime is added for both in and back in the constructor (likely to be wrong).
             // Maybe a toggle for "make sign out date now and return blank to be entered later" as default?
                 // Jack here, since its asking for two seperate times/dates, I made the assumption that this was entered after the fact and as such left it to the user to input the date. Therefore, I changed both to a string for ease of use.
-                // If we have time, we coult find a way to check if the date is in the correct format.
                 
             // TODO Validations? Probably only need to check for critical blanks. Parseint errors caught already in catch below. 
             // Might also need a staff duplication check, or do we just tolerate duplicate entries in this version?
                 // Jack again, I have added a way to check if staff and vehicles are in the system and to only allow an entry if  
-                
             // TODO: Someone to look at intended usage of the SignOutRecord class and come up with appropriate insertion below
                 // See above.
-            
             // SignOutRecord newRecord = new SignOutRecord(ARGS);
             // App.uses.add(newRecord);
-            
         } catch (Exception e) {
-
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("ERROR");
             alert.setHeaderText("Your record could not be added.");
-            alert.setContentText("Check that all fields are completed, with numbers where noted. \n\nError message: \"" + e + "\".");
+            alert.setContentText("Check that all fields are completed, with numbers where noted and that dates are entered in the correct format (dd/mm/yyyy). \n\nError message: \"" + e + "\".");
             alert.showAndWait();
         }
 

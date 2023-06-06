@@ -50,8 +50,8 @@
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Booking ID" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Staff ID" GridPane.rowIndex="1" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Vehicle ID (Number Plate)" GridPane.rowIndex="2" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date And Time Out" GridPane.rowIndex="3" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date And Time Returned" GridPane.rowIndex="4" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date And Time Out (dd/mm/yyyy)" GridPane.rowIndex="3" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date And Time Returned (dd/mm/yyyy)" GridPane.rowIndex="4" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Purpose of Borrowing" GridPane.rowIndex="5" />
                   <TextField fx:id="createuse_BookingID" GridPane.columnIndex="1" />
                   <TextField fx:id="createuse_StaffID" promptText="Must be a number" GridPane.columnIndex="1" GridPane.rowIndex="1" />
