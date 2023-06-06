@@ -40,17 +40,16 @@ public class CreateNewVehicleController implements Initializable {
     private RadioButton createvehicle_WheelchairYes;
     @FXML
     private RadioButton createvehicle_WheelchairNo;
-    
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-    }    
-    
+
+    }
+
     @FXML
     private void Save() throws IOException {
         //when the user presses the save button, this will get the values from each text field
-        
+        boolean vehicleDupeCheck = true;
         try {
             String vehicleID = createvehicle_Plate.getText();
             String vehicleMake = createvehicle_Make.getText();
@@ -62,41 +61,53 @@ public class CreateNewVehicleController implements Initializable {
             Boolean vehicleServicingYes = createvehicle_ServicingYes.isSelected();
             Boolean vehicleWheelchairYes = createvehicle_WheelchairYes.isSelected();
 
-            //TODO Validations? Probably only need to check for critical blanks. Parseint errors caught already in catch below.
+            // verification check to ensure new vehicleID is not in use
+            for (int i = 0; i < App.vehicle.size(); i++) {
+                if (App.vehicle.get(i).getVehiclePlate().contains(vehicleID)) {
+                    vehicleDupeCheck = false;
+                    break;
+                }
+            }
+            // if verification passes it will add it to the array and file
+            if (vehicleDupeCheck == true) {
+                if (vehicleTypePass == true) {
+                    PassengerVehicle newvehicle = new PassengerVehicle(vehicleID, vehicleMake, vehicleModel, vehicleYear, "Passenger Vehicle", true, vehicleSeats, vehicleTransManual);
+                    newvehicle.setServiceUpToDate(vehicleServicingYes);
+                    App.vehicle.add(newvehicle);
+                    DataHandler.writeData(App.vehicle, "Vehicle.ser");
+                } else {
+                    Bus newvehicle = new Bus(vehicleID, vehicleMake, vehicleModel, vehicleYear, "Bus", true, vehicleWheelchairYes);
+                    newvehicle.setServiceUpToDate(vehicleServicingYes);
+                    App.vehicle.add(newvehicle);
+                    DataHandler.writeData(App.vehicle, "Vehicle.ser");
+                }
 
-            if (vehicleTypePass == true) {
-                PassengerVehicle newvehicle = new PassengerVehicle(vehicleID, vehicleMake, vehicleModel, vehicleYear, "Passenger Vehicle", true, vehicleSeats, vehicleTransManual);
-                newvehicle.setServiceUpToDate(vehicleServicingYes);
-                App.vehicle.add(newvehicle);
-                DataHandler.writeData(App.vehicle, "Vehicle.ser");
+                // Show success message
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Success!");
+                alert.setHeaderText("Your record was added, and the new vehicle has been recorded as Available. You can edit this in single vehicle view.");
+                alert.setContentText("You can enter another record, or use Back to return to the main menu.");
+                alert.showAndWait();
+                ClearForm();
+            // if verification fails it will output error message
+            } else if (vehicleDupeCheck == false) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Unable to save");
+                alert.setHeaderText("This vehicle ID is already in use, please try a different vehicle ID.");
+                alert.setContentText("You can enter another record, or use Back to return to the main menu.");
+                alert.showAndWait();
+                ClearForm();
             }
-            
-            else { 
-                Bus newvehicle = new Bus(vehicleID, vehicleMake, vehicleModel, vehicleYear, "Bus", true, vehicleWheelchairYes); 
-                newvehicle.setServiceUpToDate(vehicleServicingYes);
-                App.vehicle.add(newvehicle);
-                DataHandler.writeData(App.vehicle, "Vehicle.ser");
-            }
-            
-            // Show success message
+        } catch (Exception e) {
+
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Success!");
-            alert.setHeaderText("Your record was added, and the new vehicle has been recorded as Available. You can edit this in single vehicle view.");
-            alert.setContentText("You can enter another record, or use Back to return to the main menu.");
+            alert.setTitle("ERROR");
+            alert.setHeaderText("Your record could not be added.");
+            alert.setContentText("Check that all fields are completed, with numbers where noted. \n\nError message: \"" + e + "\".");
             alert.showAndWait();
-            ClearForm();
-            
-            }
-        catch(Exception e) {
-            	
-		Alert alert = new Alert(Alert.AlertType.INFORMATION);
-		alert.setTitle("ERROR");
-		alert.setHeaderText("Your record could not be added.");
-		alert.setContentText("Check that all fields are completed, with numbers where noted. \n\nError message: \""+e+"\".");
-		alert.showAndWait();
-            }
+        }
     }
-    
+
     @FXML
     private void ClearForm() {
         createvehicle_Plate.clear();
@@ -113,13 +124,13 @@ public class CreateNewVehicleController implements Initializable {
         createvehicle_WheelchairYes.setSelected(false);
         createvehicle_WheelchairNo.setSelected(true);
     }
-    
+
     //will take user back to MainMenu
     @FXML
     private void Back() throws IOException {
         App.setRoot("MainMenu");
     }
-    
+
     //will ask for user confirmation before closing program
     @FXML
     private void exitClick() {

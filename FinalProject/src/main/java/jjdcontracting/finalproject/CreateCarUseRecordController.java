@@ -43,6 +43,7 @@ public class CreateCarUseRecordController implements Initializable {
         boolean dateOutCheck = false;
         boolean staffIdCheck = false;
         boolean vehicleIdCheck = false;
+        boolean bookingDupeCheck = true;
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Date dateOutFormat = null;
         Date dateInFormat = null;
@@ -69,6 +70,13 @@ public class CreateCarUseRecordController implements Initializable {
                     break;
                 }
             }
+            //third verification check to ensure new bookingID is not in use
+            for (int i = 0; i < App.uses.size(); i++) {
+                if (App.uses.get(i).getSignOutID() == bookingID) {
+                    bookingDupeCheck = false;
+                    break;
+                }
+            }
             //checks if the dateOut is in the correct format dd/MM/yyyy
             dateOutFormat = sdf.parse(dateOut);
             if (dateOut.equals(sdf.format(dateOutFormat))) {
@@ -80,7 +88,7 @@ public class CreateCarUseRecordController implements Initializable {
                 dateInCheck = true;
             }
             // If checks are passed it will add to the array and file
-            if (staffIdCheck == true && vehicleIdCheck == true && dateInCheck == true && dateOutCheck == true) {
+            if (staffIdCheck == true && vehicleIdCheck == true && dateInCheck == true && dateOutCheck == true && bookingDupeCheck == true) {
                 // Call the constructor to create the instance (may need to pull up extra info from other arrays to populate the call)
                 // Then add the created instance to the array - see similar section in CreateRegisteredUser for working example
                 SignOutRecord newUse = new SignOutRecord(bookingID, staffID, vehicleID, purpose, dateOut, dateIn);
@@ -93,7 +101,7 @@ public class CreateCarUseRecordController implements Initializable {
                 alert.setContentText("You can enter another record, or use Back to return to the main menu.");
                 alert.showAndWait();
                 ClearForm();
-                // If either check fails it will display error message and not add to the system
+                // If any checks fail it will display error message and not add to the system
             } else if (staffIdCheck == false || vehicleIdCheck == false) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Unable to save");
@@ -105,6 +113,13 @@ public class CreateCarUseRecordController implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Unable to save");
                 alert.setHeaderText("Your record was not added. Please ensure that the date in and date out are in the correct formats (dd/mm/yyyy).");
+                alert.setContentText("You can try to enter the record again , or use Back to return to the main menu.");
+                alert.showAndWait();
+                ClearForm();
+            } else if (bookingDupeCheck == false) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Unable to save");
+                alert.setHeaderText("This booking ID is already in use, please try a different booking ID.");
                 alert.setContentText("You can try to enter the record again , or use Back to return to the main menu.");
                 alert.showAndWait();
                 ClearForm();

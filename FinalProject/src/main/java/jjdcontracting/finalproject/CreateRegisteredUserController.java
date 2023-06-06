@@ -12,9 +12,8 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 
 public class CreateRegisteredUserController implements Initializable {
-    
+
     //captures the values inputed by user
-      
     @FXML
     private TextField createuser_Name;
     @FXML
@@ -36,16 +35,15 @@ public class CreateRegisteredUserController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-    }    
-    
+
+    }
+
     @FXML
     private void Save() throws IOException {
-        
+        boolean userDupeCheck = true;
         try {
-            
-            //when the user presses the save button, this will get the values from each text field
 
+            //when the user presses the save button, this will get the values from each text fieldString userName = createuser_Name.getText();
             String userName = createuser_Name.getText();
             int userID = Integer.parseInt(createuser_ID.getText());
             int userExt = Integer.parseInt(createuser_Ext.getText());
@@ -53,46 +51,62 @@ public class CreateRegisteredUserController implements Initializable {
             String userLicenseExpiry = createuser_LicExpiry.getText();
             Boolean userLicensedManual = createuser_ManualLicYes.isSelected();
             Boolean userLicensedBus = createuser_BusLicYes.isSelected();
+            // verification check to ensure new userID is not in use
+            for (int i = 0; i < App.user.size(); i++) {
+                if (App.user.get(i).getStaffID() == userID) {
+                    userDupeCheck = false;
+                    break;
+                }
+            }
+            // if verification passes it will add it to the array and file
+            if (userDupeCheck == true) {
+                User newuser = new User(userName, userID, userExt, userLicenseNo, userLicenseExpiry);
+                if (userLicensedManual == true) {
+                    newuser.setManualLicense(true);
+                }
+                if (userLicensedBus == true) {
+                    newuser.setBusLicense(true);
+                }
+                App.user.add(newuser);
 
-            //TODO Validations? Probably only need to check for critical blanks. Parseint errors caught already in catch below.
+                DataHandler.writeData(App.user, "UserRecords.ser");
 
-            User newuser = new User(userName, userID, userExt, userLicenseNo, userLicenseExpiry); 
-            if (userLicensedManual == true) { newuser.setManualLicense(true);}
-            if (userLicensedBus == true) { newuser.setBusLicense(true);}
-            App.user.add(newuser);
+                // test verify 
+                System.out.print(newuser.getStaffName());
+                System.out.print(newuser.getStaffID());
+                System.out.print(newuser.getStaffExt());
+                System.out.print(newuser.getLicenseNumber());
+                System.out.print(newuser.getLicenseExpiry());
+                System.out.print(newuser.isManualLicense());
+                System.out.print(newuser.isBusLicense());
+
+                // Show success message
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Success!");
+                alert.setHeaderText("Your record was added.");
+                alert.setContentText("You can enter another record, or use Back to return to the main menu.");
+                alert.showAndWait();
+                ClearForm();
+            // if verification fails it will output error message
+            } else if (userDupeCheck == false) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Unable to save");
+                alert.setHeaderText("This user ID is already in use, please try a different user ID.");
+                alert.setContentText("You can enter another record, or use Back to return to the main menu.");
+                alert.showAndWait();
+                ClearForm();
+        }
             
-            DataHandler.writeData(App.user, "UserRecords.ser");
-            
-            // test verify 
-            System.out.print(newuser.getStaffName());
-            System.out.print(newuser.getStaffID());
-            System.out.print(newuser.getStaffExt());
-            System.out.print(newuser.getLicenseNumber());
-            System.out.print(newuser.getLicenseExpiry());
-            System.out.print(newuser.isManualLicense());
-            System.out.print(newuser.isBusLicense());
-            
-            
-            
-            // Show success message
+        } catch (Exception e) {
+
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Success!");
-            alert.setHeaderText("Your record was added.");
-            alert.setContentText("You can enter another record, or use Back to return to the main menu.");
+            alert.setTitle("ERROR");
+            alert.setHeaderText("Your record could not be added.");
+            alert.setContentText("Check that all fields are completed, with numbers where noted. \n\nError message: \"" + e + "\".");
             alert.showAndWait();
-            ClearForm();
-            
-            }
-        catch(Exception e) {
-            	
-		Alert alert = new Alert(Alert.AlertType.INFORMATION);
-		alert.setTitle("ERROR");
-		alert.setHeaderText("Your record could not be added.");
-		alert.setContentText("Check that all fields are completed, with numbers where noted. \n\nError message: \""+e+"\".");
-		alert.showAndWait();
-            }
+        }
     }
-    
+
     @FXML
     private void ClearForm() {
         createuser_Name.clear();
@@ -105,13 +119,13 @@ public class CreateRegisteredUserController implements Initializable {
         createuser_BusLicYes.setSelected(false);
         createuser_BusLicNo.setSelected(true);
     }
-    
+
     //will take user back to MainMenu
     @FXML
     private void Back() throws IOException {
         App.setRoot("MainMenu");
     }
-    
+
     //will ask for user confirmation before closing program
     @FXML
     private void exitClick() {
@@ -122,5 +136,5 @@ public class CreateRegisteredUserController implements Initializable {
             }
         });
     }
-    
+
 }
