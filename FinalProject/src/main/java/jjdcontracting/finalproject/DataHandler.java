@@ -17,10 +17,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
 
-/**
- *
- * @author Deslea-Dev-VM
- */
 public class DataHandler implements Serializable {
 
     // TODO: I have dropped working serialise IO methods here from my previous project
@@ -40,10 +36,19 @@ public class DataHandler implements Serializable {
 
     // Method to read an object from a specified file
     // Modified from a tutorial at https://www.geeksforgeeks.org/serialization-in-java/
+    
+    // Returns content=null if no file, need to decide what to do here 
+    // (include starting empty file so never null? Or handle the null downstream?)
+    
     private static Object readData(String filename) throws IOException, ClassNotFoundException {
         Object contents;
         try ( FileInputStream file = new FileInputStream(filename);  ObjectInputStream in = new ObjectInputStream(file)) {
             contents = (Object) in.readObject();
+        }
+        catch (IOException | ClassNotFoundException e) {
+            // TODO/slug. Show error message on GUI.
+            System.out.println("Exception " +e+ "is caught from writeData");
+            contents = null;
         }
         return contents;
     }
@@ -54,6 +59,7 @@ public class DataHandler implements Serializable {
     // Jack here, added these loading methods below to load files at program start. could possibly condense to one method but I am currently focused on functionality over effeciency. could look at later if we have time.
     
     // Loads the SignOutRecords.ser file into the uses array
+    
     public static void loadUses(String fileName) throws FileNotFoundException, IOException, ClassNotFoundException {
         File f = new File(fileName);
         if (f.exists() == true) {
@@ -93,10 +99,39 @@ public class DataHandler implements Serializable {
         }
     }
 
+    //Method to convert a single ArrayList to a JavaFX ListView
+    // Might use for single record, may not be used
     public static <T> ListView<T> convert(ArrayList<T> arrayList) {
         ObservableList<T> observableList = FXCollections.observableArrayList(arrayList);
         ListView<T> listView = new ListView<>(observableList);
         return listView;
+    }
+    
+    // Method to take name of one of our arrays of classes and a unique ID
+    // and return a matching object 
+    public static Object getRecord(String arrayName, String id){
+        switch(arrayName) {
+            case "user":
+                for (User user : App.user) {
+                    if (user.getStaffID() == Integer.parseInt(id)) {
+                        return user;
+                    }
+                }
+            case "vehicle":
+                for (Vehicle vehicle : App.vehicle) {
+                    if (vehicle.getVehiclePlate().equals(id)) {
+                        return vehicle;
+                    }
+                }
+            case "uses":
+                for (SignOutRecord use : App.uses) {
+                    if (use.getSignOutID() == Integer.parseInt(id)) {
+                        return use;
+                    }
+                }
+            default:
+                return null;
+        }
     }
 
 }
