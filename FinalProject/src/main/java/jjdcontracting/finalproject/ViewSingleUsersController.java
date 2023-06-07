@@ -30,14 +30,13 @@ public class ViewSingleUsersController implements Initializable {
                 break;
             } else {
                 staffIdTextField.setText("StaffID number not found.");
-
             }
         }
     }
 
     private void recallInfo(int id) {
         staffNameTextField.setText(App.user.get(id).getStaffName());
-        staffIdTextField.setText(App.user.get(id).getStaffID);
+        staffIdTextField.setText(App.user.get(id).getStaffID());
         staffExtTextField.setText(App.user.get(id).getStaffExt());
         licenseNumberTextField.setText(App.user.get(id).getLicenseNumber());
         licenseExpiryTextField.setText(App.user.get(id).getLicenseExpiry());
@@ -53,8 +52,22 @@ public class ViewSingleUsersController implements Initializable {
 
     //will allow user to edit currently viewed record
     @FXML
-    private void Edit() throws IOException {
+    private void edit() throws IOException {
 
+        staffID selectedStaffId = tableView.getSelectionModel().getSelectedItem();
+        if (selectedStaffId != null) {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("EditUserDialog.fxml"));
+            Parent root = loader.load();
+            EditUserDialogController controller = loader.getController();
+            controller.setStaffId(selectedStaffId);
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.showAndWait();
+
+            tableView.refresh();
+        }
     }
 
     //will delete currently viewed record
