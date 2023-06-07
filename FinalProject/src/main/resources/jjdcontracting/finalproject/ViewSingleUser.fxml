@@ -26,7 +26,7 @@
                      </font>
                   </Text>
                   <TextField fx:id="staffIdSearch" layoutX="177.0" layoutY="5.0" />
-                  <Button layoutX="353.0" layoutY="5.0" mnemonicParsing="false" onAction="#Search" prefWidth="120.0" style="-fx-background-color: #9DC3E6;" text="Search" />
+                  <Button layoutX="339.0" layoutY="5.0" mnemonicParsing="false" onAction="#Search" prefWidth="120.0" style="-fx-background-color: #9DC3E6;" text="Search" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="31.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

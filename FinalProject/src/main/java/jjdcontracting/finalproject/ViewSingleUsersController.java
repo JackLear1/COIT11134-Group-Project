@@ -197,7 +197,7 @@ public class ViewSingleUsersController implements Initializable {
         }
     }
 
-    //will take user back to MainMenu
+    //will take user back to Main Menu
     @FXML
     private void Back() throws IOException {
         App.setRoot("MainMenu");
