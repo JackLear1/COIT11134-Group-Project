@@ -20,11 +20,6 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Text>
-                  <Text fill="RED" layoutX="237.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TODO: Review after class reviewed">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Text>
                </children>
             </AnchorPane>
           <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="31.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

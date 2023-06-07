@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="jjdcontracting.finalproject.ViewSingleUsersController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jjdcontracting.finalproject.ViewSingleUsersController">
     <children>
         <AnchorPane maxHeight="35.0" minHeight="35.0" prefHeight="35.0" style="-fx-background-color: #cfcfcf;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -25,7 +25,8 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Text>
-                  <TextField layoutX="177.0" layoutY="5.0" />
+                  <TextField fx:id="staffIdSearch" layoutX="177.0" layoutY="5.0" />
+                  <Button layoutX="353.0" layoutY="5.0" mnemonicParsing="false" onAction="#Search" prefWidth="120.0" style="-fx-background-color: #9DC3E6;" text="Search" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="31.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -62,29 +63,29 @@
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="License Expiry:" GridPane.rowIndex="4" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Is Licensed To Drive Manual:" GridPane.rowIndex="5" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Is Licensed To Drive Buses:" GridPane.rowIndex="6" />
-                  <TextField GridPane.columnIndex="1" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="staffNameTextField" GridPane.columnIndex="1" />
+                  <TextField fx:id="staffIdTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="staffExtTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="licenseNumberTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="licenseExpiryTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                      <children>
-                        <RadioButton mnemonicParsing="false" text="Yes">
+                        <RadioButton fx:id="manualYes" mnemonicParsing="false" text="Yes">
                            <toggleGroup>
                               <ToggleGroup fx:id="drivemanual" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton mnemonicParsing="false" text="No" toggleGroup="$drivemanual" />
+                        <RadioButton fx:id="manualNo" mnemonicParsing="false" text="No" toggleGroup="$drivemanual" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                      <children>
-                        <RadioButton mnemonicParsing="false" text="Yes">
+                        <RadioButton fx:id="busYes" mnemonicParsing="false" text="Yes">
                            <toggleGroup>
                               <ToggleGroup fx:id="drivebuses" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton mnemonicParsing="false" text="No" toggleGroup="$drivebuses" />
+                        <RadioButton fx:id="busNo" mnemonicParsing="false" text="No" toggleGroup="$drivebuses" />
                      </children>
                   </HBox>
                </children>
@@ -95,8 +96,8 @@
          <children>
             <Button mnemonicParsing="false" onAction="#Save" prefWidth="120.0" style="-fx-background-color: #9DC3E6;" text="Save" />
             <Button mnemonicParsing="false" onAction="#Back" prefWidth="120.0" style="-fx-background-color: #9DC3E6;" text="Back" />
-            <Button mnemonicParsing="false" prefWidth="120.0" style="-fx-background-color: #A9D18E;" text="Edit This Record" />
-            <Button mnemonicParsing="false" prefWidth="120.0" style="-fx-background-color: #ff2626;" text="Delete This Record" />
+            <Button mnemonicParsing="false" onAction="#Edit" prefWidth="120.0" style="-fx-background-color: #A9D18E;" text="Edit This Record" />
+            <Button mnemonicParsing="false" onAction="#Delete" prefWidth="120.0" style="-fx-background-color: #ff2626;" text="Delete This Record" />
          </children>
       </HBox>
     </children>
