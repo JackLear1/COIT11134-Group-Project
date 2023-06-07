@@ -107,31 +107,23 @@ public class DataHandler implements Serializable {
         return listView;
     }
     
-    // Method to take name of one of our arrays of classes and a unique ID
-    // and return a matching object 
-    public static Object getRecord(String arrayName, String id){
-        switch(arrayName) {
-            case "user":
-                for (User user : App.user) {
-                    if (user.getStaffID() == Integer.parseInt(id)) {
-                        return user;
-                    }
-                }
-            case "vehicle":
-                for (Vehicle vehicle : App.vehicle) {
-                    if (vehicle.getVehiclePlate().equals(id)) {
-                        return vehicle;
-                    }
-                }
-            case "uses":
-                for (SignOutRecord use : App.uses) {
-                    if (use.getSignOutID() == Integer.parseInt(id)) {
-                        return use;
-                    }
-                }
-            default:
-                return null;
-        }
+    // Methods to take a unique ID and return a matching object 
+    public static Vehicle getCar(String id){
+        for (Vehicle vehicle : App.vehicle)
+            { if (vehicle.getVehiclePlate().equals(id)) { return vehicle;}}
+        return null;
+    }
+    
+    public static User getUser(String id){
+        for (User user : App.user) 
+            { if (user.getStaffID() == Integer.parseInt(id)) { return user; }}
+        return null;
+    }
+    
+    public static SignOutRecord getUse(String id){
+        for (SignOutRecord use : App.uses) 
+            { if (use.getSignOutID() == Integer.parseInt(id)) { return use; } }
+        return null;
     }
 
 }
