@@ -55,7 +55,7 @@ public class ViewSingleCarUsesController implements Initializable {
 
             int searchKey = Integer.parseInt(bookingIdSearch.getText());
 
-            for (int i = 0; i < App.user.size(); i++) {
+            for (int i = 0; i < App.uses.size(); i++) {
                 if (App.uses.get(i).getSignOutID() == searchKey) {
                     sessionID = i;
                     recallInfo(sessionID);
