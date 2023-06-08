@@ -12,6 +12,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.text.Text;
 
 public class ViewSingleVehiclesController implements Initializable {
 
@@ -19,7 +20,7 @@ public class ViewSingleVehiclesController implements Initializable {
     @FXML
     private TextField errorMsg;
     @FXML
-    private TextField helpEdit;
+    private Text helpEdit;
     @FXML
     private TextField vehicleSearch;
     @FXML
@@ -66,6 +67,7 @@ public class ViewSingleVehiclesController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        errorMsg.setVisible(false);
         helpEdit.setVisible(false);
         vehicleEdit.setVisible(false);
         vehicleEdit.setVisible(false);
@@ -75,6 +77,30 @@ public class ViewSingleVehiclesController implements Initializable {
     //will allow user to search through vehicle records
     @FXML
     private void Search() throws IOException {
+        
+        // set fields to view only
+        
+        errorMsg.setText("Viewing:");
+        errorMsg.setVisible(true);
+        helpEdit.setVisible(false);
+        vehicleSave.setVisible(false);
+        vehicleBack.setVisible(true);
+        vehicleEdit.setVisible(true);
+        vehicleDelete.setVisible(true);
+        
+        vehicleID.setEditable(false);
+        vehicleMake.setEditable(false);
+        vehicleTypePassenger.setDisable(true);
+        vehicleTypeBus.setDisable(true);
+        vehicleModel.setEditable(false);
+        vehicleYear.setEditable(false);
+        vehicleCapacity.setEditable(false);
+        vehicleTransManual.setDisable(true);
+        vehicleTransAuto.setDisable(true);
+        vehicleServicedYes.setDisable(true);
+        vehicleServicedNo.setDisable(true);
+        vehicleAccessibleYes.setDisable(true);
+        vehicleAccessibleNo.setDisable(true);
         
         // error if no search text
         if (vehicleSearch.getText().isEmpty()) {
@@ -165,13 +191,21 @@ public class ViewSingleVehiclesController implements Initializable {
     //will allow user to edit currently viewed record
     @FXML
     private void Edit() throws IOException {
-        errorMsg.setText("You are editing!");
+        errorMsg.setText("Editing:");
+        errorMsg.setVisible(true);
         helpEdit.setVisible(true);
         vehicleSave.setVisible(true);
         vehicleBack.setVisible(true);
         vehicleEdit.setVisible(false);
         vehicleDelete.setVisible(true);
         
+        
+        //ID and type not editable
+        vehicleID.setEditable(false);
+        vehicleTypePassenger.setDisable(true);
+        vehicleTypeBus.setDisable(true);
+        
+        // Other fields editable
         vehicleMake.setEditable(true);
         vehicleModel.setEditable(true);
         vehicleYear.setEditable(true);

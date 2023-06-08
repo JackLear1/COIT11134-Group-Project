@@ -18,20 +18,20 @@
     <children>
         <AnchorPane maxHeight="35.0" minHeight="35.0" prefHeight="35.0" style="-fx-background-color: #cfcfcf;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-          <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="473.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+          <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="559.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Text layoutX="14.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="View Single Vehicle By ID:">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="vehicleSearch" layoutX="197.0" layoutY="4.0" />
-                  <Button layoutX="352.0" layoutY="5.0" mnemonicParsing="false" text="Search" />
-                  <Text fx:id="errorMsg" fill="RED" layoutX="413.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" visible="false">
+                  <TextField fx:id="vehicleSearch" layoutX="197.0" layoutY="4.0" onAction="#Search" />
+                  <Button layoutX="352.0" layoutY="5.0" mnemonicParsing="false" onAction="#Search" text="Search" />
+                  <TextField fx:id="errorMsg" editable="false" layoutX="410.0" layoutY="5.0" promptText="result" style="-fx-border-color: red;">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
-                  </Text>
+                  </TextField>
                </children>
             </AnchorPane>
           <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="31.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -74,7 +74,7 @@
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Manual/Automatic:" GridPane.rowIndex="6" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Service Up To Date:" GridPane.rowIndex="7" />
                   <TextField fx:id="vehicleID" GridPane.columnIndex="1" />
-                  <HBox fx:id="vehicleTypePassenger" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <HBox fx:id="" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
                         <RadioButton fx:id="vehicleTypePassenger" mnemonicParsing="false" text="Passenger Vehicle">
                            <toggleGroup>
@@ -130,8 +130,8 @@
          <children>
             <Button fx:id="vehicleSave" mnemonicParsing="false" onAction="#Save" prefWidth="120.0" style="-fx-background-color: #9DC3E6;" text="Save" visible="false" />
             <Button fx:id="vehicleBack" mnemonicParsing="false" onAction="#Back" prefWidth="120.0" style="-fx-background-color: #9DC3E6;" text="Back" />
-            <Button fx:id="vehicleEdit" mnemonicParsing="false" prefWidth="120.0" style="-fx-background-color: #A9D18E;" text="Edit This Record" />
-            <Button fx:id="vehicleDelete" mnemonicParsing="false" prefWidth="120.0" style="-fx-background-color: #ff2626;" text="Delete This Record" />
+            <Button fx:id="vehicleEdit" mnemonicParsing="false" onAction="#Edit" prefWidth="120.0" style="-fx-background-color: #A9D18E;" text="Edit This Record" />
+            <Button fx:id="vehicleDelete" mnemonicParsing="false" onAction="#Delete" prefWidth="120.0" style="-fx-background-color: #ff2626;" text="Delete This Record" />
          </children>
       </HBox>
     </children>
