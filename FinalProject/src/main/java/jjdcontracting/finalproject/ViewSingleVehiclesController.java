@@ -128,7 +128,7 @@ public class ViewSingleVehiclesController implements Initializable {
                 errorMsg.setVisible(false); // clear any prior search errors
                     vehicleID.setText(myCar.getVehiclePlate());
                     vehicleMake.setText(myCar.getVehicleMake());
-                    vehicleModel.setText(myCar.getVehicleMake());
+                    vehicleModel.setText(myCar.getVehicleModel());
                     Integer year = myCar.getVehicleYear();
                     vehicleYear.setText(year.toString());
                     if (myCar.isServiceUpToDate()) {
