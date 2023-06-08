@@ -4,7 +4,7 @@ package jjdcontracting.finalproject;
 // COIT1134 Object Oriented Programming
 // Deslea Judd, Student 12211138
 // Jack Lear, Student 12207908
-// Jenna Katt, Stident 12127332
+// Jenna Katt, Student 12127332
 // Term 1 2023
 
 import javafx.application.Application;
