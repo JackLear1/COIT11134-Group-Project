@@ -7,10 +7,12 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.Border;
 import javafx.scene.text.Text;
 
 public class ViewSingleUsersController implements Initializable {
@@ -43,11 +45,24 @@ public class ViewSingleUsersController implements Initializable {
     private TextField errorMsg;
     @FXML
     private Text helpEdit;
+    @FXML
+    private Button userSave;
+    @FXML
+    private Button userBack;
+    @FXML
+    private Button userEdit;
+    @FXML
+    private Button userDelete;
 
     int sessionID = -1;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb) { 
+        userEdit.setVisible(false);
+        userDelete.setVisible(false);
+        userSave.setVisible(false);
+        
+        // Start out view only
         staffNameTextField.setEditable(false);
         staffIdTextField.setEditable(false);
         staffExtTextField.setEditable(false);
@@ -73,15 +88,20 @@ public class ViewSingleUsersController implements Initializable {
             if (App.user.get(i).getStaffID() == searchKey) {
                 sessionID = i;
                 recallInfo(sessionID);
-                errorMsg.setVisible(false);
+                errorMsg.setStyle("-fx-border-color: green;");
+                errorMsg.setText("Viewing:");
+                errorMsg.setVisible(true);
+                helpEdit.setVisible(false);
                 break;
             } else {
                 errorMsg.setVisible(true);
+                errorMsg.setStyle("-fx-border-color: red;");
                 errorMsg.setText("ID not found!");
             }
         }
         } catch (NumberFormatException e) {
             errorMsg.setVisible(true);
+            errorMsg.setStyle("-fx-border-color: red;");
             errorMsg.setText("Please enter an ID!");
         }
     }
@@ -105,6 +125,12 @@ public class ViewSingleUsersController implements Initializable {
         } else if (App.user.get(id).manualLicense == false) {
             busNo.setSelected(true);
         }
+        
+        // Enable edit and delete buttons
+        userSave.setVisible(false);
+        userEdit.setVisible(true);
+        userDelete.setVisible(true);
+        helpEdit.setVisible(true);
     }
 
 //will save edits that user has made to record
@@ -147,12 +173,32 @@ public class ViewSingleUsersController implements Initializable {
                 App.user.get(sessionID).setBusLicense(userLicensedBus);
 
                 DataHandler.writeData(App.user, "UserRecords.ser");
+                
+                errorMsg.setText("Edits saved!");
+                errorMsg.setStyle("-fx-border-color: green;");
+                errorMsg.setVisible(true);
+                helpEdit.setVisible(true);
+                userSave.setVisible(false);
+                userBack.setVisible(true);
+                userEdit.setVisible(true);
+                userDelete.setVisible(true);
+
+                //Fields reset to not editable
+                staffNameTextField.setEditable(false);
+                staffIdTextField.setEditable(false);
+                staffExtTextField.setEditable(false);
+                licenseNumberTextField.setEditable(false);
+                licenseExpiryTextField.setEditable(false);
+                manualYes.setDisable(true);
+                manualNo.setDisable(true);
+                busYes.setDisable(true);
+                busNo.setDisable(true);
 
                 // Show success message
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Success!");
                 alert.setHeaderText("User " + App.user.get(sessionID).getStaffID() + " was edited.");
-                alert.setContentText("You can enter another record, or use Back to return to the main menu.");
+                alert.setContentText("You can search for another record, or use Back to return to the main menu.");
                 alert.showAndWait();
             }
         } catch (Exception e) {
@@ -175,7 +221,19 @@ public class ViewSingleUsersController implements Initializable {
             alert.setContentText("You can enter a user ID to search for a user at the top of the page.");
             alert.showAndWait();
         } else if (sessionID >= 0) {
+            errorMsg.setText("Editing:");
+            errorMsg.setStyle("-fx-border-color: green;");
+            errorMsg.setVisible(true);
             helpEdit.setVisible(true);
+            userSave.setVisible(true);
+            userBack.setVisible(true);
+            userEdit.setVisible(false);
+            userDelete.setVisible(true);
+
+            //ID not editable
+            staffIdTextField.setEditable(false);
+
+            // Other fields editable
             staffNameTextField.setEditable(true);
             staffExtTextField.setEditable(true);
             licenseNumberTextField.setEditable(true);
@@ -190,6 +248,7 @@ public class ViewSingleUsersController implements Initializable {
     @FXML
     private void Delete() throws IOException {
         if (sessionID == -1) {
+            // Shouldn't happen now because Delete only shows with an entry, but leaving just in case
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error");
             alert.setHeaderText("Please search for a valid user before continuing");
@@ -202,6 +261,20 @@ public class ViewSingleUsersController implements Initializable {
                     App.user.remove(sessionID);
                     try {
                         DataHandler.writeData(App.user, "UserRecords.ser");
+                        // Success message and clear form
+                        errorMsg.setText("Deleted!");
+                        errorMsg.setStyle("-fx-border-color: green;");
+                        errorMsg.setVisible(true);
+                        helpEdit.setVisible(false);
+                        staffNameTextField.clear();
+                        staffIdTextField.clear();
+                        staffExtTextField.clear();
+                        licenseNumberTextField.clear();
+                        licenseExpiryTextField.clear();
+                        manualYes.setSelected(false);
+                        manualNo.setSelected(false);
+                        busYes.setSelected(false);
+                        busNo.setSelected(false);
                     } catch (IOException ex) {
                         Alert deleteAlert = new Alert(Alert.AlertType.INFORMATION);
                         deleteAlert.setTitle("Error");

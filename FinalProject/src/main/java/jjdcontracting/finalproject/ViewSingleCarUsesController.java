@@ -9,6 +9,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -32,12 +33,24 @@ public class ViewSingleCarUsesController implements Initializable {
     @FXML
     private TextField borrowingTextField;
     @FXML
+    private Button usesSave;
+    @FXML
+    private Button usesBack;
+    @FXML
+    private Button usesEdit;
+    @FXML
+    private Button usesDelete;
+    @FXML
     private Text helpEdit;
 
     int sessionID = -1;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        usesEdit.setVisible(false);
+        usesDelete.setVisible(false);
+        usesSave.setVisible(false);
+        
         bookingIdTextField.setEditable(false);
         staffIdTextField.setEditable(false);
         vehicleIdTextField.setEditable(false);
@@ -59,15 +72,20 @@ public class ViewSingleCarUsesController implements Initializable {
                 if (App.uses.get(i).getSignOutID() == searchKey) {
                     sessionID = i;
                     recallInfo(sessionID);
-                    errorMsg.setVisible(false);
+                    errorMsg.setStyle("-fx-border-color: green;");
+                    errorMsg.setText("Viewing:");
+                    errorMsg.setVisible(true);
+                    helpEdit.setVisible(false);
                     break;
                 } else {
                     errorMsg.setVisible(true);
+                    errorMsg.setStyle("-fx-border-color: red;");
                     errorMsg.setText("ID not found!");
                 }
             }
         } catch (NumberFormatException e) {
             errorMsg.setVisible(true);
+            errorMsg.setStyle("-fx-border-color: red;");
             errorMsg.setText("Please enter an ID!");
         }
     }
@@ -80,6 +98,12 @@ public class ViewSingleCarUsesController implements Initializable {
         dateOutTextField.setText(App.uses.get(id).getDateTimeOut());
         dateInTextField.setText(App.uses.get(id).getDateTimeIn());
         borrowingTextField.setText(App.uses.get(id).getPurpose());
+        
+        // Enable edit and delete buttons
+        usesSave.setVisible(false);
+        usesEdit.setVisible(true);
+        usesDelete.setVisible(true);
+        helpEdit.setVisible(true);
 
     }
 
@@ -144,6 +168,26 @@ public class ViewSingleCarUsesController implements Initializable {
                     App.uses.get(sessionID).setPurpose(purpose);
 
                     DataHandler.writeData(App.uses, "SignOutRecords.ser");
+                    
+                    errorMsg.setText("Edits saved!");
+                    errorMsg.setStyle("-fx-border-color: green;");
+                    errorMsg.setVisible(true);
+                    helpEdit.setVisible(true);
+                    usesSave.setVisible(false);
+                    usesBack.setVisible(true);
+                    usesEdit.setVisible(true);
+                    usesDelete.setVisible(true);
+
+                    //Fields reset to not editable
+                    bookingIdTextField.setEditable(false);
+                    staffIdTextField.setEditable(false);
+                    vehicleIdTextField.setEditable(false);
+                    dateOutTextField.setEditable(false);
+                    dateInTextField.setEditable(false);
+                    borrowingTextField.setEditable(false);
+                    helpEdit.setVisible(false);
+                    errorMsg.setVisible(false);
+            
                     // Show success message
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Success!");
@@ -188,7 +232,19 @@ public class ViewSingleCarUsesController implements Initializable {
             alert.setContentText("You can enter a user ID to search for a user at the top of the page.");
             alert.showAndWait();
         } else if (sessionID >= 0) {
+            errorMsg.setText("Editing:");
+            errorMsg.setStyle("-fx-border-color: green;");
+            errorMsg.setVisible(true);
             helpEdit.setVisible(true);
+            usesSave.setVisible(true);
+            usesBack.setVisible(true);
+            usesEdit.setVisible(false);
+            usesDelete.setVisible(true);
+
+            //ID not editable
+            bookingIdTextField.setEditable(false);
+
+            // Other fields editable
             staffIdTextField.setEditable(true);
             vehicleIdTextField.setEditable(true);
             dateOutTextField.setEditable(true);
@@ -213,6 +269,17 @@ public class ViewSingleCarUsesController implements Initializable {
                     App.uses.remove(sessionID);
                     try {
                         DataHandler.writeData(App.uses, "SignOutRecords.ser");
+                        // Success message and clear form
+                        errorMsg.setText("Deleted!");
+                        errorMsg.setStyle("-fx-border-color: green;");
+                        errorMsg.setVisible(true);
+                        helpEdit.setVisible(false);
+                        bookingIdTextField.clear();
+                        staffIdTextField.clear();
+                        vehicleIdTextField.clear();
+                        dateOutTextField.clear();
+                        dateInTextField.clear();
+                        borrowingTextField.clear();
                     } catch (IOException ex) {
                         Alert deleteAlert = new Alert(Alert.AlertType.INFORMATION);
                         deleteAlert.setTitle("Error");

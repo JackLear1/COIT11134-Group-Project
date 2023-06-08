@@ -26,7 +26,7 @@
                      </font>
                   </Text>
                   <TextField fx:id="vehicleSearch" layoutX="197.0" layoutY="4.0" onAction="#Search" />
-                  <Button layoutX="352.0" layoutY="5.0" mnemonicParsing="false" onAction="#Search" text="Search" />
+                  <Button layoutX="352.0" layoutY="5.0" mnemonicParsing="false" onAction="#Search" style="-fx-background-color: #9DC3E6;" text="Search" />
                   <TextField fx:id="errorMsg" editable="false" layoutX="410.0" layoutY="5.0" promptText="result" style="-fx-border-color: red;">
                      <font>
                         <Font name="System Bold" size="12.0" />
