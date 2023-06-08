@@ -12,6 +12,12 @@ public class PassengerVehicle extends Vehicle implements Serializable{
         this.passengerSeats = passengerSeats;
         this.manualTransmission = isManualTransmission;
     }
+    
+    public void setPassengerVehicleMultiple(String vehicleMake, String vehicleModel, int vehicleYear, Boolean isAvailable, Boolean serviceUpToDate, int passengerSeats, Boolean isManualTransmission) {
+        setVehicleMultiple(vehicleMake, vehicleModel, vehicleYear, isAvailable, serviceUpToDate); 
+        this.passengerSeats = passengerSeats;
+        this.manualTransmission = isManualTransmission;
+    }
 
     public int getPassengerSeats() {
         return passengerSeats;

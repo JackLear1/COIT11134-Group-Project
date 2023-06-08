@@ -12,6 +12,11 @@ public class Bus extends Vehicle implements Serializable{
         this.wheelchairAccessible = wheelchairAccessible;
     }
     
+    public void setBusMultiple(String vehicleMake, String vehicleModel, int vehicleYear, Boolean isAvailable, Boolean serviceUpToDate, Boolean isAccessible) {
+        setVehicleMultiple(vehicleMake, vehicleModel, vehicleYear, isAvailable, serviceUpToDate); 
+        this.wheelchairAccessible = isAccessible;
+    }
+    
     public boolean isWheelchairAccessible() {
         return wheelchairAccessible;
     }

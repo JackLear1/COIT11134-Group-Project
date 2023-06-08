@@ -72,7 +72,7 @@ public class ViewSingleVehiclesController implements Initializable {
         errorMsg.setVisible(false);
         helpEdit.setVisible(false);
         vehicleEdit.setVisible(false);
-        vehicleEdit.setVisible(false);
+        vehicleDelete.setVisible(false);
         vehicleSave.setVisible(false);
     }
     
@@ -185,9 +185,42 @@ public class ViewSingleVehiclesController implements Initializable {
     //will save edits that user has made to record
     @FXML
     private void Save() throws IOException {
-        // TODO
-        return;
+        Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Edit Confirmation");
+            alert.setHeaderText("Are you sure you want to edit?");
+            alert.setContentText("This action can't be reversed.");
+                
+            ButtonType buttonTypeOK = new ButtonType("OK");
+            ButtonType buttonTypeCancel = new ButtonType("Cancel");
+
+            alert.getButtonTypes().setAll(buttonTypeOK, buttonTypeCancel);
+            
+            Optional<ButtonType> result = alert.showAndWait();
         
+        if (result.isPresent() && result.get() == buttonTypeOK) {
+
+            String serviced;
+            String manual;
+            String category;
+            if (vehicleServicedYes.isSelected() == true) { serviced = "true"; }
+            else {serviced = "false"; }
+            if (vehicleTransManual.isSelected() == true) { manual = "true"; }
+            else {manual = "false"; }
+            if (vehicleTypePassenger.isSelected() == true) { category = "passenger"; }
+            else { category = "bus"; }
+            String[] myArray = {vehicleMake.getText(), vehicleModel.getText(), vehicleYear.getText(), "true", serviced, category, vehicleCapacity.getText(), manual};
+            
+            DataHandler.editEntry("vehicle", vehicleID.getText(), myArray);
+            
+        errorMsg.setText("Edits Saved!");
+        errorMsg.setVisible(true);
+        helpEdit.setVisible(false);
+        vehicleSave.setVisible(false);
+        vehicleBack.setVisible(true);
+        vehicleEdit.setVisible(true);
+        vehicleDelete.setVisible(true);            
+        }
+        else { alert.close(); }       
     }
     
     //will allow user to edit currently viewed record

@@ -166,8 +166,8 @@ public class DataHandler implements Serializable {
                         deleteAlert.setHeaderText("Record could not be deleted.");
                         deleteAlert.setContentText("Please check that a correct vehicleID was entered. \n\nError message: \"" + ex + "\".");
                         ex.printStackTrace();
-                    }
-                    
+                        return -1;
+                    }  
                 }
                 return -1;
                 
@@ -184,6 +184,81 @@ public class DataHandler implements Serializable {
                     App.uses.remove(foundUse);
                     return 1;
                 }
+                return -1;
+        }
+        
+        return -1;
+    }
+    
+    public static int editEntry(String entryType, String id, String[] args){
+        switch (entryType) {
+            case "user":
+                // TODO
+                return -1;
+                
+            case "vehicle":
+                Vehicle foundVehicle = null;
+                PassengerVehicle pv = null;
+                Bus bus = null;
+                
+                // explode array
+                int year = Integer.parseInt(args[2]);
+                boolean serviced = Boolean.parseBoolean(args[3]);
+                boolean available = Boolean.parseBoolean(args[4]);
+                int seats;
+                boolean manual;
+                boolean accessible;
+                
+                if (args[5].equals("passenger")) {
+                    seats = Integer.parseInt(args[6]);
+                    manual = Boolean.parseBoolean(args[7]);
+                    accessible = false; // not used
+                }
+                else if (args[5].equals("bus")) { 
+                    accessible = Boolean.parseBoolean(args[6]);
+                    manual = true; // Always true for buses but not used
+                    seats = 0; // standard amount in buses but not used
+                }
+                else { return -1; }
+               
+                
+                //Find vehicle
+                for (Vehicle vehicle: App.vehicle){
+                    if (vehicle.getVehiclePlate().equals(id)) { 
+                        foundVehicle = vehicle;
+                        break;
+                    }
+                }
+                
+                if (foundVehicle != null) {
+                                                       
+                // Make updates using appropriate subclass method
+                
+                if (args[5].equals("passenger")) {
+                    pv = (PassengerVehicle) foundVehicle;
+                    pv.setPassengerVehicleMultiple(args[0], args[1], year, serviced, available, seats, manual);
+                }
+                if (args[5].equals("bus")) { 
+                    bus = (Bus) foundVehicle;
+                    bus.setBusMultiple(args[0], args[1], year, serviced, available, accessible);
+                }
+                                        
+                    try {
+                        DataHandler.writeData(App.vehicle, "Vehicle.ser");
+                        return 1;
+                    } catch (IOException ex) {
+                        Alert deleteAlert = new Alert(Alert.AlertType.INFORMATION);
+                        deleteAlert.setTitle("Error");
+                        deleteAlert.setHeaderText("Record could not be edited.");
+                        deleteAlert.setContentText("Please check that a correct vehicleID was entered. \n\nError message: \"" + ex + "\".");
+                        ex.printStackTrace();
+                        return -1;
+                    }  
+                }
+                return -1;
+                
+            case "uses":
+               // TODO
                 return -1;
         }
         
