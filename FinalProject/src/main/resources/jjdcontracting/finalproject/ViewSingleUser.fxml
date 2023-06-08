@@ -94,7 +94,7 @@
                         <RadioButton fx:id="busNo" mnemonicParsing="false" text="No" toggleGroup="$drivebuses" />
                      </children>
                   </HBox>
-                  <Text fx:id="helpEdit" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Staff ID number cannot bed edited. If this detail is wrong, delete and create new." GridPane.rowIndex="7" />
+                  <Text fx:id="helpEdit" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Staff ID number cannot be edited. If this detail is wrong, delete and create new." GridPane.rowIndex="7" />
                </children>
             </GridPane>
          </content>

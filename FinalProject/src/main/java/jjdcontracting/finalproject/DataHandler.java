@@ -193,7 +193,7 @@ public class DataHandler implements Serializable {
     public static int editEntry(String entryType, String id, String[] args){
         switch (entryType) {
             case "user":
-                // TODO
+                // TODO - only if a separate handler is desired by whoever codes it
                 return -1;
                 
             case "vehicle":
@@ -258,7 +258,7 @@ public class DataHandler implements Serializable {
                 return -1;
                 
             case "uses":
-               // TODO
+               // TODO - only if a separate handler is desired by whoever codes it
                 return -1;
         }
         
