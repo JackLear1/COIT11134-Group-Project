@@ -67,7 +67,7 @@
                   <TextField fx:id="dateOutTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <TextField fx:id="staffIdTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="dateInTextField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <TextField fx:id="borrowingTextField" prefHeight="89.0" prefWidth="270.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <TextField fx:id="borrowingTextField" alignment="TOP_LEFT" prefHeight="89.0" prefWidth="270.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Vehicle ID (Number Plate):" GridPane.rowIndex="3" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date And Time Out (dd/mm/yyyy):" GridPane.rowIndex="4" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date And Time Returned (dd/mm/yyyy):" GridPane.rowIndex="5" />
