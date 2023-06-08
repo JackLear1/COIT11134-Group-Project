@@ -11,6 +11,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.text.Text;
 
 public class ViewSingleUsersController implements Initializable {
 
@@ -38,6 +39,10 @@ public class ViewSingleUsersController implements Initializable {
     private RadioButton busYes;
     @FXML
     private RadioButton busNo;
+    @FXML
+    private TextField errorMsg;
+    @FXML
+    private Text helpEdit;
 
     int sessionID = -1;
 
@@ -52,22 +57,32 @@ public class ViewSingleUsersController implements Initializable {
         manualNo.setDisable(true);
         busYes.setDisable(true);
         busNo.setDisable(true);
+        errorMsg.setEditable(false);
+        errorMsg.setVisible(false);
+        helpEdit.setVisible(false);
     }
 
     //will allow user to search through user records
     @FXML
     private void Search() throws IOException {
-
+        try {
+        
         int searchKey = Integer.parseInt(staffIdSearch.getText());
 
         for (int i = 0; i < App.user.size(); i++) {
             if (App.user.get(i).getStaffID() == searchKey) {
                 sessionID = i;
                 recallInfo(sessionID);
+                errorMsg.setVisible(false);
                 break;
             } else {
-                staffIdSearch.setText("StaffID number not found.");
+                errorMsg.setVisible(true);
+                errorMsg.setText("ID not found!");
             }
+        }
+        } catch (NumberFormatException e) {
+            errorMsg.setVisible(true);
+            errorMsg.setText("Please enter an ID!");
         }
     }
 
@@ -112,6 +127,7 @@ public class ViewSingleUsersController implements Initializable {
                 int userExt = Integer.parseInt(staffExtTextField.getText());
                 String userLicenseNo = licenseNumberTextField.getText();
                 String userLicenseExpiry = licenseExpiryTextField.getText();
+                helpEdit.setVisible(false);
                 if (manualYes.isSelected()) {
                     userLicensedManual = true;
                 } else if (manualNo.isSelected()) {
@@ -159,6 +175,7 @@ public class ViewSingleUsersController implements Initializable {
             alert.setContentText("You can enter a user ID to search for a user at the top of the page.");
             alert.showAndWait();
         } else if (sessionID >= 0) {
+            helpEdit.setVisible(true);
             staffNameTextField.setEditable(true);
             staffExtTextField.setEditable(true);
             licenseNumberTextField.setEditable(true);
