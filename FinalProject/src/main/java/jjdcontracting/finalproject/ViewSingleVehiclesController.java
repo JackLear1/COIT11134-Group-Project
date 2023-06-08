@@ -2,11 +2,13 @@ package jjdcontracting.finalproject;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.RadioButton;
@@ -223,8 +225,43 @@ public class ViewSingleVehiclesController implements Initializable {
     //will delete currently viewed record
     @FXML
     private void Delete() throws IOException {
-        // TODO
-        return;
+        Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Delete Confirmation?");
+            alert.setHeaderText("Are you sure you want to delete?");
+            alert.setContentText("This action can't be reversed.");
+                
+            ButtonType buttonTypeOK = new ButtonType("OK");
+            ButtonType buttonTypeCancel = new ButtonType("Cancel");
+
+            alert.getButtonTypes().setAll(buttonTypeOK, buttonTypeCancel);
+            
+            Optional<ButtonType> result = alert.showAndWait();
+        
+        if (result.isPresent() && result.get() == buttonTypeOK) { 
+            DataHandler.delEntry("vehicle", vehicleID.getText());
+            
+        errorMsg.setText("Deleted!");
+        errorMsg.setVisible(true);
+        helpEdit.setVisible(false);
+        vehicleSave.setVisible(false);
+        vehicleBack.setVisible(true);
+        vehicleEdit.setVisible(false);
+        vehicleDelete.setVisible(false);
+        vehicleID.clear();
+        vehicleTypePassenger.setSelected(false);
+        vehicleTypeBus.setSelected(false);
+        vehicleMake.clear();
+        vehicleModel.clear();
+        vehicleYear.clear();
+        vehicleCapacity.clear();
+        vehicleTransManual.setSelected(false);
+        vehicleTransAuto.setSelected(false);
+        vehicleServicedYes.setSelected(false);
+        vehicleServicedNo.setSelected(false);
+        vehicleAccessibleYes.setSelected(false);
+        vehicleAccessibleNo.setSelected(false);            
+        }
+        else { alert.close(); }       
     }
     
     //will take user back to MainMenu

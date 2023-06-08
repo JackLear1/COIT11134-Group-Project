@@ -15,6 +15,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 
 public class DataHandler implements Serializable {
@@ -100,7 +101,7 @@ public class DataHandler implements Serializable {
     }
 
     //Method to convert a single ArrayList to a JavaFX ListView
-    // Might use for single record, may not be used
+    // Not used yet. Might use for single record.
     public static <T> ListView<T> convert(ArrayList<T> arrayList) {
         ObservableList<T> observableList = FXCollections.observableArrayList(arrayList);
         ListView<T> listView = new ListView<>(observableList);
@@ -126,4 +127,67 @@ public class DataHandler implements Serializable {
         return null;
     }
 
+    
+    //Method to take a unique ID and type and delete it from the array and file.
+    public static int delEntry(String entryType, String id){
+        switch (entryType) {
+            case "user":
+                User foundUser = null;
+                for (User user: App.user){
+                    int intID = Integer.parseInt(id);
+                    if (user.getStaffID() == intID) { 
+                        foundUser = user; 
+                        break;
+                    }
+                }
+                if (foundUser != null) {
+                    App.user.remove(foundUser);
+                    return 1;
+                }
+                return -1;
+                
+            case "vehicle":
+                Vehicle foundVehicle = null;
+                for (Vehicle vehicle: App.vehicle){
+                    if (vehicle.getVehiclePlate().equals(id)) { 
+                        foundVehicle = vehicle; 
+                        break;
+                    }
+                }
+                if (foundVehicle != null) {
+                    App.vehicle.remove(foundVehicle);
+                    
+                    try {
+                        DataHandler.writeData(App.vehicle, "Vehicle.ser");
+                        return 1;
+                    } catch (IOException ex) {
+                        Alert deleteAlert = new Alert(Alert.AlertType.INFORMATION);
+                        deleteAlert.setTitle("Error");
+                        deleteAlert.setHeaderText("Record could not be deleted.");
+                        deleteAlert.setContentText("Please check that a correct vehicleID was entered. \n\nError message: \"" + ex + "\".");
+                        ex.printStackTrace();
+                    }
+                    
+                }
+                return -1;
+                
+            case "uses":
+                SignOutRecord foundUse = null;
+                for (SignOutRecord use: App.uses){
+                    int intID = Integer.parseInt(id);
+                    if (use.getSignOutID() == intID) { 
+                        foundUse = use; 
+                        break;
+                    }
+                }
+                if (foundUse != null) {
+                    App.uses.remove(foundUse);
+                    return 1;
+                }
+                return -1;
+        }
+        
+        return -1;
+    }
+    
 }
