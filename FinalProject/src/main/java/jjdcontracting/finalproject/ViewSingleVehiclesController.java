@@ -19,166 +19,100 @@ import javafx.scene.text.Text;
 public class ViewSingleVehiclesController implements Initializable {
 
     // Declare fields from the FXML
-    @FXML
-    private TextField errorMsg;
-    @FXML
-    private Text helpEdit;
-    @FXML
-    private TextField vehicleSearch;
-    @FXML
-    private TextField vehicleID;
-    @FXML
-    private RadioButton vehicleTypePassenger;
-    @FXML
-    private RadioButton vehicleTypeBus;
-    @FXML
-    private TextField vehicleMake;
-    @FXML
-    private TextField vehicleModel;
-    @FXML
-    private TextField vehicleYear;
-    @FXML
-    private TextField vehicleCapacity;
-    @FXML
-    private ToggleGroup manualauto;
-    @FXML
-    private RadioButton vehicleTransManual;
-    @FXML
-    private RadioButton vehicleTransAuto;
-    @FXML
-    private ToggleGroup serviceyesno;
-    @FXML
-    private RadioButton vehicleServicedYes;
-    @FXML
-    private RadioButton vehicleServicedNo;
-    @FXML
-    private ToggleGroup accessibleyesno;
-    @FXML
-    private RadioButton vehicleAccessibleYes;
-    @FXML
-    private RadioButton vehicleAccessibleNo;
-    @FXML
-    private Button vehicleSave;
-    @FXML
-    private Button vehicleBack;
-    @FXML
-    private Button vehicleEdit;
-    @FXML
-    private Button vehicleDelete;
+    @FXML private TextField errorMsg;
+    @FXML private Text helpEdit;
+    @FXML private TextField vehicleSearch;
+    @FXML private TextField vehicleID;
+    @FXML private RadioButton vehicleTypePassenger;
+    @FXML private RadioButton vehicleTypeBus;
+    @FXML private TextField vehicleMake;
+    @FXML private TextField vehicleModel;
+    @FXML private TextField vehicleYear;
+    @FXML private TextField vehicleCapacity;
+    @FXML private ToggleGroup manualauto;
+    @FXML private RadioButton vehicleTransManual;
+    @FXML private RadioButton vehicleTransAuto;
+    @FXML private ToggleGroup serviceyesno;
+    @FXML private RadioButton vehicleServicedYes;
+    @FXML private RadioButton vehicleServicedNo;
+    @FXML private ToggleGroup accessibleyesno;
+    @FXML private RadioButton vehicleAccessibleYes;
+    @FXML private RadioButton vehicleAccessibleNo;
+    @FXML private Button vehicleSave;
+    @FXML private Button vehicleBack;
+    @FXML private Button vehicleEdit;
+    @FXML private Button vehicleDelete;
     
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        errorMsg.setVisible(false);
-        helpEdit.setVisible(false);
-        vehicleEdit.setVisible(false);
-        vehicleDelete.setVisible(false);
-        vehicleSave.setVisible(false);
+        setButtonsAndMessages("start");
     }
     
     //will allow user to search through vehicle records
     @FXML
     private void Search() throws IOException {
         
-        // set fields to view only
-        
-        errorMsg.setText("Viewing:");
-        errorMsg.setStyle("-fx-border-color: green;");
-        errorMsg.setVisible(true);
-        helpEdit.setVisible(false);
-        vehicleSave.setVisible(false);
-        vehicleBack.setVisible(true);
-        vehicleEdit.setVisible(true);
-        vehicleDelete.setVisible(true);
-        
-        vehicleID.setEditable(false);
-        vehicleMake.setEditable(false);
-        vehicleTypePassenger.setDisable(true);
-        vehicleTypeBus.setDisable(true);
-        vehicleModel.setEditable(false);
-        vehicleYear.setEditable(false);
-        vehicleCapacity.setEditable(false);
-        vehicleTransManual.setDisable(true);
-        vehicleTransAuto.setDisable(true);
-        vehicleServicedYes.setDisable(true);
-        vehicleServicedNo.setDisable(true);
-        vehicleAccessibleYes.setDisable(true);
-        vehicleAccessibleNo.setDisable(true);
-        
-        // error if no search text
+        // error and quit if no search text
         if (vehicleSearch.getText().isEmpty()) {
-            errorMsg.setText("Please enter an ID!");
-            errorMsg.setVisible(true);
-            helpEdit.setVisible(false);
+            setButtonsAndMessages("needID");
+            return;
+        }
+        // error and quit if search term not found
+        if (DataHandler.getCar(vehicleSearch.getText()) == null) {
+            setButtonsAndMessages("noID");
+            return;
+        }
+        
+        // Return search result
+        setButtonsAndMessages("searchresult");
+        setFormViewOnly();
+        
+        String searchTerm = vehicleSearch.getText();
+        Vehicle myCar = DataHandler.getCar(searchTerm);
+        vehicleID.setText(myCar.getVehiclePlate());
+        vehicleMake.setText(myCar.getVehicleMake());
+        vehicleModel.setText(myCar.getVehicleModel());
+        Integer year = myCar.getVehicleYear();
+        vehicleYear.setText(year.toString());
+        if (myCar.isServiceUpToDate()) {
+            vehicleServicedYes.setSelected(true);
+            vehicleServicedNo.setSelected(false);
+        } else {
+            vehicleServicedYes.setSelected(false);
+            vehicleServicedNo.setSelected(true);
+        }
+        if (myCar.getVehicleCategory().equals("Passenger Vehicle")) {
+            vehicleTypePassenger.setSelected(true);
+            vehicleTypeBus.setSelected(false);
+            vehicleAccessibleYes.setDisable(true);
+            vehicleAccessibleNo.setDisable(true);
+            // Re-cast as Passenger to get subclass methods
+            PassengerVehicle pv = (PassengerVehicle) myCar;
+            Integer capacity = pv.getPassengerSeats();
+            vehicleCapacity.setText(capacity.toString());
+            if (pv.isManualTransmission()) {
+                vehicleTransManual.setSelected(true);
+                vehicleTransAuto.setSelected(false);
+            } else {
+                vehicleTransManual.setSelected(false);
+                vehicleTransAuto.setSelected(true);
             }
+        } 
         else {
-        
-            // error if search term not found
-            if (DataHandler.getCar(vehicleSearch.getText()) == null) {
-                errorMsg.setText("ID not found!");
-                errorMsg.setVisible(true);
-                helpEdit.setVisible(false);
-                }
-            else {
-                // Return search result
-                // Enable edit and delete buttons
-                vehicleSave.setVisible(false);
-                vehicleEdit.setVisible(true);
-                vehicleDelete.setVisible(true);
-                helpEdit.setVisible(true);
-                String searchTerm = vehicleSearch.getText();
-                Vehicle myCar = DataHandler.getCar(searchTerm);
-                errorMsg.setVisible(false); // clear any prior search errors
-                    vehicleID.setText(myCar.getVehiclePlate());
-                    vehicleMake.setText(myCar.getVehicleMake());
-                    vehicleModel.setText(myCar.getVehicleModel());
-                    Integer year = myCar.getVehicleYear();
-                    vehicleYear.setText(year.toString());
-                    if (myCar.isServiceUpToDate()) {
-                        vehicleServicedYes.setSelected(true);
-                        vehicleServicedNo.setSelected(false);
-                    }
-                    else {
-                        vehicleServicedYes.setSelected(false);
-                        vehicleServicedNo.setSelected(true);
-                    }
-                    if (myCar.getVehicleCategory().equals("Passenger Vehicle")){
-                        vehicleTypePassenger.setSelected(true);
-                        vehicleTypeBus.setSelected(false);
-                        vehicleAccessibleYes.setDisable(true);
-                        vehicleAccessibleNo.setDisable(true);
-                        // Re-cast as Passenger to get subclass methods
-                        PassengerVehicle pv = (PassengerVehicle) myCar;
-                        Integer capacity = pv.getPassengerSeats();
-                        vehicleCapacity.setText(capacity.toString());
-                        if (pv.isManualTransmission()) {
-                            vehicleTransManual.setSelected(true);
-                            vehicleTransAuto.setSelected(false);
-                        }
-                        else {
-                            vehicleTransManual.setSelected(false);
-                            vehicleTransAuto.setSelected(true);
-                        }
-                    }
-                    else {
-                        vehicleTypePassenger.setSelected(false);
-                        vehicleTypeBus.setSelected(true);
-                        vehicleTransManual.setDisable(true);
-                        vehicleTransAuto.setDisable(true);
-                        vehicleCapacity.setDisable(true);
-                        // Re-cast as Bus to get subclass methods
-                        Bus b = (Bus) myCar;
-                        if (b.isWheelchairAccessible()) {
-                            vehicleAccessibleYes.setSelected(true);
-                            vehicleAccessibleNo.setSelected(false);
-                        }
-                        else {
-                            vehicleAccessibleYes.setSelected(false);
-                            vehicleAccessibleNo.setSelected(true);
-                        }
-
-                    }
-        
+            vehicleTypePassenger.setSelected(false);
+            vehicleTypeBus.setSelected(true);
+            vehicleTransManual.setDisable(true);
+            vehicleTransAuto.setDisable(true);
+            vehicleCapacity.setDisable(true);
+            // Re-cast as Bus to get subclass methods
+            Bus b = (Bus) myCar;
+            if (b.isWheelchairAccessible()) {
+                vehicleAccessibleYes.setSelected(true);
+                vehicleAccessibleNo.setSelected(false);
+            } else {
+                vehicleAccessibleYes.setSelected(false);
+                vehicleAccessibleNo.setSelected(true);
             }
         }
     }
@@ -236,29 +170,8 @@ public class ViewSingleVehiclesController implements Initializable {
             try {
                 DataHandler.writeData(App.vehicle, "Vehicle.ser");
                 
-                errorMsg.setText("Edits saved!");
-                errorMsg.setStyle("-fx-border-color: green;");
-                errorMsg.setVisible(true);
-                helpEdit.setVisible(true);
-                vehicleSave.setVisible(false);
-                vehicleBack.setVisible(true);
-                vehicleEdit.setVisible(true);
-                vehicleDelete.setVisible(true);
-
-                //Fields reset to not editable
-                vehicleID.setEditable(false);
-                vehicleTypePassenger.setDisable(true);
-                vehicleTypeBus.setDisable(true);
-                vehicleMake.setEditable(false);
-                vehicleModel.setEditable(false);
-                vehicleYear.setEditable(false);
-                vehicleCapacity.setEditable(false);
-                vehicleTransManual.setDisable(true);
-                vehicleTransAuto.setDisable(true);
-                vehicleServicedYes.setDisable(true);
-                vehicleServicedNo.setDisable(true);
-                vehicleAccessibleYes.setDisable(true);
-                vehicleAccessibleNo.setDisable(true);
+                setButtonsAndMessages("editsuccess");
+                setFormViewOnly();
 
                 // Show success message
                 Alert alertResult = new Alert(Alert.AlertType.INFORMATION);
@@ -284,35 +197,10 @@ public class ViewSingleVehiclesController implements Initializable {
     //will allow user to edit currently viewed record
     @FXML
     private void Edit() throws IOException {
-        errorMsg.setText("Editing:");
-        errorMsg.setStyle("-fx-border-color: green;");
-        errorMsg.setVisible(true);
-        helpEdit.setVisible(true);
-        vehicleSave.setVisible(true);
-        vehicleBack.setVisible(true);
-        vehicleEdit.setVisible(false);
-        vehicleDelete.setVisible(true);
-        
-        //ID and type not editable
-        vehicleID.setEditable(false);
-        vehicleTypePassenger.setDisable(true);
-        vehicleTypeBus.setDisable(true);
-        
-        // Other fields editable
-        vehicleMake.setEditable(true);
-        vehicleModel.setEditable(true);
-        vehicleYear.setEditable(true);
-        vehicleCapacity.setEditable(true);
-        vehicleTransManual.setDisable(false);
-        vehicleTransAuto.setDisable(false);
-        vehicleServicedYes.setDisable(false);
-        vehicleServicedNo.setDisable(false);
-        vehicleAccessibleYes.setDisable(false);
-        vehicleAccessibleNo.setDisable(false);
+        setButtonsAndMessages("editing");        
+        setFormEditable();
     }
-        
-    
-    
+   
     //will delete currently viewed record
     @FXML
     private void Delete() throws IOException {
@@ -344,27 +232,8 @@ public class ViewSingleVehiclesController implements Initializable {
             // Write to file and return screen to view mode
             try {
                 DataHandler.writeData(App.vehicle, "Vehicle.ser");
-                
-                errorMsg.setText("Deleted!");
-                errorMsg.setVisible(true);
-                helpEdit.setVisible(false);
-                vehicleSave.setVisible(false);
-                vehicleBack.setVisible(true);
-                vehicleEdit.setVisible(false);
-                vehicleDelete.setVisible(false);
-                vehicleID.clear();
-                vehicleTypePassenger.setSelected(false);
-                vehicleTypeBus.setSelected(false);
-                vehicleMake.clear();
-                vehicleModel.clear();
-                vehicleYear.clear();
-                vehicleCapacity.clear();
-                vehicleTransManual.setSelected(false);
-                vehicleTransAuto.setSelected(false);
-                vehicleServicedYes.setSelected(false);
-                vehicleServicedNo.setSelected(false);
-                vehicleAccessibleYes.setSelected(false);
-                vehicleAccessibleNo.setSelected(false); 
+                setButtonsAndMessages("deletesuccess");
+                setFormClear();
                 
             } catch (IOException ex) {
                 Alert deleteAlert = new Alert(Alert.AlertType.INFORMATION);
@@ -395,6 +264,125 @@ public class ViewSingleVehiclesController implements Initializable {
                 Platform.exit();
             }
         });
+    }
+    
+    @FXML
+    private void setFormViewOnly() {
+        vehicleID.setEditable(false);
+        vehicleMake.setEditable(false);
+        vehicleTypePassenger.setDisable(true);
+        vehicleTypeBus.setDisable(true);
+        vehicleModel.setEditable(false);
+        vehicleYear.setEditable(false);
+        vehicleCapacity.setEditable(false);
+        vehicleTransManual.setDisable(true);
+        vehicleTransAuto.setDisable(true);
+        vehicleServicedYes.setDisable(true);
+        vehicleServicedNo.setDisable(true);
+        vehicleAccessibleYes.setDisable(true);
+        vehicleAccessibleNo.setDisable(true);
+    }
+    
+    @FXML
+    private void setFormEditable() {
+        //ID and type not editable
+        vehicleID.setEditable(false);
+        vehicleTypePassenger.setDisable(true);
+        vehicleTypeBus.setDisable(true);
+        
+        // Other fields editable
+        vehicleMake.setEditable(true);
+        vehicleModel.setEditable(true);
+        vehicleYear.setEditable(true);
+        vehicleCapacity.setEditable(true);
+        vehicleTransManual.setDisable(false);
+        vehicleTransAuto.setDisable(false);
+        vehicleServicedYes.setDisable(false);
+        vehicleServicedNo.setDisable(false);
+        vehicleAccessibleYes.setDisable(false);
+        vehicleAccessibleNo.setDisable(false);
+    }
+    
+    @FXML 
+    private void setFormClear() {
+        vehicleID.clear();
+        vehicleTypePassenger.setSelected(false);
+        vehicleTypeBus.setSelected(false);
+        vehicleMake.clear();
+        vehicleModel.clear();
+        vehicleYear.clear();
+        vehicleCapacity.clear();
+        vehicleTransManual.setSelected(false);
+        vehicleTransAuto.setSelected(false);
+        vehicleServicedYes.setSelected(false);
+        vehicleServicedNo.setSelected(false);
+        vehicleAccessibleYes.setSelected(false);
+        vehicleAccessibleNo.setSelected(false);
+    }
+    
+    @FXML
+    private void setButtonsAndMessages(String str) {
+        switch (str) {
+                case "start":
+                    errorMsg.setVisible(false);
+                    helpEdit.setVisible(false);
+                    vehicleEdit.setVisible(false);
+                    vehicleDelete.setVisible(false);
+                    vehicleSave.setVisible(false);
+                    break;
+                case "searchresult":
+                    errorMsg.setText("Viewing:");
+                    errorMsg.setStyle("-fx-border-color: green;");
+                    errorMsg.setVisible(true);
+                    helpEdit.setVisible(true);
+                    vehicleSave.setVisible(false);
+                    vehicleBack.setVisible(true);
+                    vehicleEdit.setVisible(true);
+                    vehicleDelete.setVisible(true);
+                    break;
+                case "needID":
+                    errorMsg.setText("Please enter an ID!");
+                    errorMsg.setStyle("-fx-border-color: red;");
+                    errorMsg.setVisible(true);
+                    helpEdit.setVisible(false);
+                    break;
+                case "noID":
+                    errorMsg.setText("ID not found!");
+                    errorMsg.setStyle("-fx-border-color: red;");
+                    errorMsg.setVisible(true);
+                    helpEdit.setVisible(false);
+                    break;
+                case "editsuccess":
+                    errorMsg.setText("Edits saved!");
+                    errorMsg.setStyle("-fx-border-color: green;");
+                    errorMsg.setVisible(true);
+                    helpEdit.setVisible(true);
+                    vehicleSave.setVisible(false);
+                    vehicleBack.setVisible(true);
+                    vehicleEdit.setVisible(true);
+                    vehicleDelete.setVisible(true);
+                    break;
+                case "editing":
+                    errorMsg.setText("Editing:");
+                    errorMsg.setStyle("-fx-border-color: green;");
+                    errorMsg.setVisible(true);
+                    helpEdit.setVisible(true);
+                    vehicleSave.setVisible(true);
+                    vehicleBack.setVisible(true);
+                    vehicleEdit.setVisible(false);
+                    vehicleDelete.setVisible(true);
+                    break;
+                case "deletesuccess":
+                    errorMsg.setText("Deleted!");
+                    errorMsg.setStyle("-fx-border-color: green;");
+                    errorMsg.setVisible(true);
+                    helpEdit.setVisible(false);
+                    vehicleSave.setVisible(false);
+                    vehicleBack.setVisible(true);
+                    vehicleEdit.setVisible(false);
+                    vehicleDelete.setVisible(false);
+                    break;
+        }
     }
     
 }

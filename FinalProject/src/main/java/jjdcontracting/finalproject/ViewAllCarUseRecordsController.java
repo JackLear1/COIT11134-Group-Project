@@ -18,34 +18,18 @@ public class ViewAllCarUseRecordsController implements Initializable {
 
     // **** Set Up Tableview Variables **** //
     
-    // TODO: These will not work correctly yet. Once what's to go in these 
-    // columns is agreed, you can refactor the displayTBA1 below etc and change 
-    // the type in the declarations below as appropriate. Then edit initialize() 
-    // below.
-    
-    @FXML
-    private TableView<SignOutRecord> displayUsesTable;
-    @FXML
-    private TableColumn<SignOutRecord, String> displaySignOutID;
-    @FXML
-    private TableColumn<SignOutRecord, String> displayStaffID;
-    @FXML
-    private TableColumn<SignOutRecord, String> displayvehicleID;
-    @FXML
-    private TableColumn<SignOutRecord, String> displayDateTimeOut;
-    @FXML
-    private TableColumn<SignOutRecord, Integer> displayDateTimeIn;
-    @FXML
-    private TableColumn<SignOutRecord, Boolean> displayPurpose;
-    @FXML
-    private ObservableList<SignOutRecord> usesListener;
+    @FXML private TableView<SignOutRecord> displayUsesTable;
+    @FXML private TableColumn<SignOutRecord, String> displaySignOutID;
+    @FXML private TableColumn<SignOutRecord, String> displayStaffID;
+    @FXML private TableColumn<SignOutRecord, String> displayvehicleID;
+    @FXML private TableColumn<SignOutRecord, String> displayDateTimeOut;
+    @FXML private TableColumn<SignOutRecord, Integer> displayDateTimeIn;
+    @FXML private TableColumn<SignOutRecord, Boolean> displayPurpose;
+    @FXML private ObservableList<SignOutRecord> usesListener;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    
-        // TODO: Also needs to be fixed. Refactoring the displayTBAs should fix everything in the code except the marrying up to actual class attributes - do this manually below.
-        // TODO: Also need to open the fxml in Scene Builder to change the titles that appear on the columns in the scene.
-        
+            
         // Create listener for array
         usesListener = FXCollections.observableArrayList(App.uses);
         // Initialise Users Columns and map to class variables

@@ -17,64 +17,31 @@ import javafx.scene.text.Text;
 
 public class ViewSingleUsersController implements Initializable {
 
-    @FXML
-    private ToggleGroup drivemanual;
-    @FXML
-    private ToggleGroup drivebuses;
-    @FXML
-    private TextField staffIdSearch;
-    @FXML
-    private TextField staffNameTextField;
-    @FXML
-    private TextField staffIdTextField;
-    @FXML
-    private TextField staffExtTextField;
-    @FXML
-    private TextField licenseNumberTextField;
-    @FXML
-    private TextField licenseExpiryTextField;
-    @FXML
-    private RadioButton manualYes;
-    @FXML
-    private RadioButton manualNo;
-    @FXML
-    private RadioButton busYes;
-    @FXML
-    private RadioButton busNo;
-    @FXML
-    private TextField errorMsg;
-    @FXML
-    private Text helpEdit;
-    @FXML
-    private Button userSave;
-    @FXML
-    private Button userBack;
-    @FXML
-    private Button userEdit;
-    @FXML
-    private Button userDelete;
+    @FXML private ToggleGroup drivemanual;
+    @FXML private ToggleGroup drivebuses;
+    @FXML private TextField staffIdSearch;
+    @FXML private TextField staffNameTextField;
+    @FXML private TextField staffIdTextField;
+    @FXML private TextField staffExtTextField;
+    @FXML private TextField licenseNumberTextField;
+    @FXML private TextField licenseExpiryTextField;
+    @FXML private RadioButton manualYes;
+    @FXML private RadioButton manualNo;
+    @FXML private RadioButton busYes;
+    @FXML private RadioButton busNo;
+    @FXML private TextField errorMsg;
+    @FXML private Text helpEdit;
+    @FXML private Button userSave;
+    @FXML private Button userBack;
+    @FXML private Button userEdit;
+    @FXML private Button userDelete;
 
     int sessionID = -1;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) { 
-        userEdit.setVisible(false);
-        userDelete.setVisible(false);
-        userSave.setVisible(false);
-        
-        // Start out view only
-        staffNameTextField.setEditable(false);
-        staffIdTextField.setEditable(false);
-        staffExtTextField.setEditable(false);
-        licenseNumberTextField.setEditable(false);
-        licenseExpiryTextField.setEditable(false);
-        manualYes.setDisable(true);
-        manualNo.setDisable(true);
-        busYes.setDisable(true);
-        busNo.setDisable(true);
-        errorMsg.setEditable(false);
-        errorMsg.setVisible(false);
-        helpEdit.setVisible(false);
+        setButtonsAndMessages("start");
+        setFormViewOnly();
     }
 
     //will allow user to search through user records
@@ -88,21 +55,14 @@ public class ViewSingleUsersController implements Initializable {
             if (App.user.get(i).getStaffID() == searchKey) {
                 sessionID = i;
                 recallInfo(sessionID);
-                errorMsg.setStyle("-fx-border-color: green;");
-                errorMsg.setText("Viewing:");
-                errorMsg.setVisible(true);
-                helpEdit.setVisible(false);
+                setButtonsAndMessages("searchresult");
                 break;
             } else {
-                errorMsg.setVisible(true);
-                errorMsg.setStyle("-fx-border-color: red;");
-                errorMsg.setText("ID not found!");
+                setButtonsAndMessages("noID");
             }
         }
         } catch (NumberFormatException e) {
-            errorMsg.setVisible(true);
-            errorMsg.setStyle("-fx-border-color: red;");
-            errorMsg.setText("Please enter an ID!");
+                setButtonsAndMessages("needID");
         }
     }
 
@@ -125,12 +85,7 @@ public class ViewSingleUsersController implements Initializable {
         } else if (App.user.get(id).manualLicense == false) {
             busNo.setSelected(true);
         }
-        
-        // Enable edit and delete buttons
-        userSave.setVisible(false);
-        userEdit.setVisible(true);
-        userDelete.setVisible(true);
-        helpEdit.setVisible(true);
+
     }
 
 //will save edits that user has made to record
@@ -153,7 +108,6 @@ public class ViewSingleUsersController implements Initializable {
                 int userExt = Integer.parseInt(staffExtTextField.getText());
                 String userLicenseNo = licenseNumberTextField.getText();
                 String userLicenseExpiry = licenseExpiryTextField.getText();
-                helpEdit.setVisible(false);
                 if (manualYes.isSelected()) {
                     userLicensedManual = true;
                 } else if (manualNo.isSelected()) {
@@ -173,26 +127,8 @@ public class ViewSingleUsersController implements Initializable {
                 App.user.get(sessionID).setBusLicense(userLicensedBus);
 
                 DataHandler.writeData(App.user, "UserRecords.ser");
-                
-                errorMsg.setText("Edits saved!");
-                errorMsg.setStyle("-fx-border-color: green;");
-                errorMsg.setVisible(true);
-                helpEdit.setVisible(true);
-                userSave.setVisible(false);
-                userBack.setVisible(true);
-                userEdit.setVisible(true);
-                userDelete.setVisible(true);
-
-                //Fields reset to not editable
-                staffNameTextField.setEditable(false);
-                staffIdTextField.setEditable(false);
-                staffExtTextField.setEditable(false);
-                licenseNumberTextField.setEditable(false);
-                licenseExpiryTextField.setEditable(false);
-                manualYes.setDisable(true);
-                manualNo.setDisable(true);
-                busYes.setDisable(true);
-                busNo.setDisable(true);
+                setButtonsAndMessages("editsuccess");
+                setFormViewOnly();
 
                 // Show success message
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -221,27 +157,8 @@ public class ViewSingleUsersController implements Initializable {
             alert.setContentText("You can enter a user ID to search for a user at the top of the page.");
             alert.showAndWait();
         } else if (sessionID >= 0) {
-            errorMsg.setText("Editing:");
-            errorMsg.setStyle("-fx-border-color: green;");
-            errorMsg.setVisible(true);
-            helpEdit.setVisible(true);
-            userSave.setVisible(true);
-            userBack.setVisible(true);
-            userEdit.setVisible(false);
-            userDelete.setVisible(true);
-
-            //ID not editable
-            staffIdTextField.setEditable(false);
-
-            // Other fields editable
-            staffNameTextField.setEditable(true);
-            staffExtTextField.setEditable(true);
-            licenseNumberTextField.setEditable(true);
-            licenseExpiryTextField.setEditable(true);
-            manualYes.setDisable(false);
-            manualNo.setDisable(false);
-            busYes.setDisable(false);
-            busNo.setDisable(false);
+            setButtonsAndMessages("editing");
+            setFormEditable();
         }
     }
 
@@ -261,20 +178,8 @@ public class ViewSingleUsersController implements Initializable {
                     App.user.remove(sessionID);
                     try {
                         DataHandler.writeData(App.user, "UserRecords.ser");
-                        // Success message and clear form
-                        errorMsg.setText("Deleted!");
-                        errorMsg.setStyle("-fx-border-color: green;");
-                        errorMsg.setVisible(true);
-                        helpEdit.setVisible(false);
-                        staffNameTextField.clear();
-                        staffIdTextField.clear();
-                        staffExtTextField.clear();
-                        licenseNumberTextField.clear();
-                        licenseExpiryTextField.clear();
-                        manualYes.setSelected(false);
-                        manualNo.setSelected(false);
-                        busYes.setSelected(false);
-                        busNo.setSelected(false);
+                        setButtonsAndMessages("deletesuccess");
+                        clearForm();
                     } catch (IOException ex) {
                         Alert deleteAlert = new Alert(Alert.AlertType.INFORMATION);
                         deleteAlert.setTitle("Error");
@@ -302,5 +207,106 @@ public class ViewSingleUsersController implements Initializable {
                 Platform.exit();
             }
         });
+    }
+    
+    @FXML
+    private void setFormViewOnly() {
+        staffNameTextField.setEditable(false);
+        staffIdTextField.setEditable(false);
+        staffExtTextField.setEditable(false);
+        licenseNumberTextField.setEditable(false);
+        licenseExpiryTextField.setEditable(false);
+        manualYes.setDisable(true);
+        manualNo.setDisable(true);
+        busYes.setDisable(true);
+        busNo.setDisable(true);
+    }
+    
+    @FXML
+    private void setFormEditable() {
+        //ID not editable
+        staffIdTextField.setEditable(false);
+        // Other fields editable
+        staffNameTextField.setEditable(true);
+        staffExtTextField.setEditable(true);
+        licenseNumberTextField.setEditable(true);
+        licenseExpiryTextField.setEditable(true);
+        manualYes.setDisable(false);
+        manualNo.setDisable(false);
+        busYes.setDisable(false);
+        busNo.setDisable(false); 
+    }
+    
+    @FXML
+    private void clearForm(){
+        staffNameTextField.clear();
+        staffIdTextField.clear();
+        staffExtTextField.clear();
+        licenseNumberTextField.clear();
+        licenseExpiryTextField.clear();
+        manualYes.setSelected(false);
+        manualNo.setSelected(false);
+        busYes.setSelected(false);
+        busNo.setSelected(false);
+    }
+    
+    @FXML
+    private void setButtonsAndMessages(String str) {
+        switch (str) {
+            case "start":
+                errorMsg.setVisible(false);
+                helpEdit.setVisible(false);
+                userEdit.setVisible(false);
+                userDelete.setVisible(false);
+                userSave.setVisible(false);
+                break;
+            case "searchresult":    
+                errorMsg.setStyle("-fx-border-color: green;");
+                errorMsg.setText("Viewing:");
+                errorMsg.setVisible(true);
+                userSave.setVisible(false);
+                userEdit.setVisible(true);
+                userDelete.setVisible(true);
+                helpEdit.setVisible(true);
+                break;
+            case "noID":
+                errorMsg.setVisible(true);
+                errorMsg.setStyle("-fx-border-color: red;");
+                errorMsg.setText("ID not found!");
+                break;
+            case "needID":
+                errorMsg.setVisible(true);
+                errorMsg.setStyle("-fx-border-color: red;");
+                errorMsg.setText("Please enter an ID!");
+                break;
+            case "editing":
+                errorMsg.setText("Editing:");
+                errorMsg.setStyle("-fx-border-color: green;");
+                errorMsg.setVisible(true);
+                helpEdit.setVisible(true);
+                userSave.setVisible(true);
+                userBack.setVisible(true);
+                userEdit.setVisible(false);
+                userDelete.setVisible(true);
+                break;
+            case "deletesuccess":
+                errorMsg.setText("Deleted!");
+                errorMsg.setStyle("-fx-border-color: green;");
+                errorMsg.setVisible(true);
+                helpEdit.setVisible(false);
+                userSave.setVisible(false);
+                userBack.setVisible(true);
+                userEdit.setVisible(false);
+                userDelete.setVisible(false);
+            case "editsuccess":
+                errorMsg.setText("Edits saved!");
+                errorMsg.setStyle("-fx-border-color: green;");
+                errorMsg.setVisible(true);
+                helpEdit.setVisible(true);
+                userSave.setVisible(false);
+                userBack.setVisible(true);
+                userEdit.setVisible(true);
+                userDelete.setVisible(true);
+        }
     }
 }

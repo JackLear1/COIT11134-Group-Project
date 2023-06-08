@@ -1,21 +1,29 @@
 package jjdcontracting.finalproject;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+//******  Group Project  ******//
+// COIT1134 Object Oriented Programming
+// Deslea Judd, Student 12211138
+// Jack Lear, Student 12207908
+// Jenna Katt, Stident 12127332
+// Term 1 2023
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.ListView;
+import java.io.IOException;
+
+//TODO Deslea here, I think all unused/ported to other classes, OK to delete after testing
+//import java.io.FileInputStream;
+//import java.io.FileOutputStream;
+//import java.io.ObjectInputStream;
+//import java.io.ObjectOutputStream;
+//import java.io.Serializable;
+//import javafx.collections.FXCollections;
+//import javafx.collections.ObservableList;
+//import javafx.scene.control.ListView;
 
 public class App extends Application {
           

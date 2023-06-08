@@ -14,24 +14,15 @@ import javafx.scene.control.TextField;
 public class CreateRegisteredUserController implements Initializable {
 
     //captures the values inputed by user
-    @FXML
-    private TextField createuser_Name;
-    @FXML
-    private TextField createuser_ID;
-    @FXML
-    private TextField createuser_Ext;
-    @FXML
-    private TextField createuser_LicNo;
-    @FXML
-    private TextField createuser_LicExpiry;
-    @FXML
-    private RadioButton createuser_ManualLicYes;
-    @FXML
-    private RadioButton createuser_ManualLicNo;
-    @FXML
-    private RadioButton createuser_BusLicYes;
-    @FXML
-    private RadioButton createuser_BusLicNo;
+    @FXML private TextField createuser_Name;
+    @FXML private TextField createuser_ID;
+    @FXML private TextField createuser_Ext;
+    @FXML private TextField createuser_LicNo;
+    @FXML private TextField createuser_LicExpiry;
+    @FXML private RadioButton createuser_ManualLicYes;
+    @FXML private RadioButton createuser_ManualLicNo;
+    @FXML private RadioButton createuser_BusLicYes;
+    @FXML private RadioButton createuser_BusLicNo;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

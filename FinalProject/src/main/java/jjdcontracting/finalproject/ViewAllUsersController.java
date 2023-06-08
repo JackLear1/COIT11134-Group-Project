@@ -17,24 +17,15 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class ViewAllUsersController implements Initializable {
     
     // **** Set Up Tableview Variables **** //
-    @FXML
-    private TableView<User> displayUsersTable;
-    @FXML
-    private TableColumn<User, String> displayUsersName;
-    @FXML
-    private TableColumn<User, Integer> displayUsersID;
-    @FXML
-    private TableColumn<User, Integer> displayUsersExt;
-    @FXML
-    private TableColumn<User, String> displayUsersLicNo;
-    @FXML
-    private TableColumn<User, String> displayUsersLicExpiry;
-    @FXML
-    private TableColumn<User, Boolean> displayUsersManualBool;
-    @FXML
-    private TableColumn<User, Boolean> displayUsersBusBool;
-    private ObservableList<User> usersListener;
-
+    @FXML private TableView<User> displayUsersTable;
+    @FXML private TableColumn<User, String> displayUsersName;
+    @FXML private TableColumn<User, Integer> displayUsersID;
+    @FXML private TableColumn<User, Integer> displayUsersExt;
+    @FXML private TableColumn<User, String> displayUsersLicNo;
+    @FXML private TableColumn<User, String> displayUsersLicExpiry;
+    @FXML private TableColumn<User, Boolean> displayUsersManualBool;
+    @FXML private TableColumn<User, Boolean> displayUsersBusBool;
+    @FXML private ObservableList<User> usersListener;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -51,10 +42,7 @@ public class ViewAllUsersController implements Initializable {
         // Set class source for TableView
         displayUsersTable.setItems(usersListener);
     }   
-    
-
-
-    
+      
     //will take user back to MainMenu
     @FXML
     private void Back() throws IOException {

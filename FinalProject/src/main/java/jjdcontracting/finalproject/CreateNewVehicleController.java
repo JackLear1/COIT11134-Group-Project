@@ -14,36 +14,22 @@ import javafx.scene.control.TextField;
 public class CreateNewVehicleController implements Initializable {
 
     //captures the values inputed by user
-    @FXML
-    private TextField createvehicle_Plate;
-    @FXML
-    private TextField createvehicle_Make;
-    @FXML
-    private TextField createvehicle_Model;
-    @FXML
-    private TextField createvehicle_Year;
-    @FXML
-    private TextField createvehicle_Seats;
-    @FXML
-    private RadioButton createvehicle_Passenger;
-    @FXML
-    private RadioButton createvehicle_Bus;
-    @FXML
-    private RadioButton createvehicle_Manual;
-    @FXML
-    private RadioButton createvehicle_Auto;
-    @FXML
-    private RadioButton createvehicle_ServicingYes;
-    @FXML
-    private RadioButton createvehicle_ServicingNo;
-    @FXML
-    private RadioButton createvehicle_WheelchairYes;
-    @FXML
-    private RadioButton createvehicle_WheelchairNo;
+    @FXML private TextField createvehicle_Plate;
+    @FXML private TextField createvehicle_Make;
+    @FXML private TextField createvehicle_Model;
+    @FXML private TextField createvehicle_Year;
+    @FXML private TextField createvehicle_Seats;
+    @FXML private RadioButton createvehicle_Passenger;
+    @FXML private RadioButton createvehicle_Bus;
+    @FXML private RadioButton createvehicle_Manual;
+    @FXML private RadioButton createvehicle_Auto;
+    @FXML private RadioButton createvehicle_ServicingYes;
+    @FXML private RadioButton createvehicle_ServicingNo;
+    @FXML private RadioButton createvehicle_WheelchairYes;
+    @FXML private RadioButton createvehicle_WheelchairNo;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
     }
 
     @FXML

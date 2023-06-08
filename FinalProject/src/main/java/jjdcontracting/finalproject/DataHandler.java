@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package jjdcontracting.finalproject;
 
 import java.io.File;
@@ -13,10 +9,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ListView;
+// TODO Deslea here, I think unused, delete after testing
+// import javafx.collections.FXCollections;
+// import javafx.collections.ObservableList;
+// import javafx.scene.control.Alert;
 
 public class DataHandler implements Serializable {
 
@@ -99,15 +95,7 @@ public class DataHandler implements Serializable {
             System.out.println(fileName + " not found");
         }
     }
-
-    //Method to convert a single ArrayList to a JavaFX ListView
-    // Not used yet. Might use for single record.
-    public static <T> ListView<T> convert(ArrayList<T> arrayList) {
-        ObservableList<T> observableList = FXCollections.observableArrayList(arrayList);
-        ListView<T> listView = new ListView<>(observableList);
-        return listView;
-    }
-    
+   
     // Methods to take a unique ID and return a matching object 
     public static Vehicle getCar(String id){
         for (Vehicle vehicle : App.vehicle)

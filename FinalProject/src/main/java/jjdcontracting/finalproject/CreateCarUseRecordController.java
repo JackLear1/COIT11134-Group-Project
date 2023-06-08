@@ -16,25 +16,16 @@ import javafx.scene.control.TextField;
 public class CreateCarUseRecordController implements Initializable {
 
     //captures the values inputed by user
-    // TODO: This was set up following the screens in the project plan
-    // Field are not 1:1 for fields in the SignOutRecord class (eg signoutID is envisaged)
-    // Reconciliation/cleanup of these needed, also knock on changes to the ClearForm() method later in this class
-    @FXML
-    private TextField createuse_BookingID;
-    @FXML
-    private TextField createuse_StaffID;
-    @FXML
-    private TextField createuse_VehicleID;
-    @FXML
-    private TextField createuse_DateTimeOut;
-    @FXML
-    private TextField createuse_DateTimeIn;
-    @FXML
-    private TextArea createuse_Purpose;
+    
+    @FXML private TextField createuse_BookingID;
+    @FXML private TextField createuse_StaffID;
+    @FXML private TextField createuse_VehicleID;
+    @FXML private TextField createuse_DateTimeOut;
+    @FXML private TextField createuse_DateTimeIn;
+    @FXML private TextArea createuse_Purpose;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
     }
 
     @FXML
@@ -48,7 +39,6 @@ public class CreateCarUseRecordController implements Initializable {
         Date dateOutFormat = null;
         Date dateInFormat = null;
         try {
-
             //when the user presses the save button, this will get the values from each text field.
             int bookingID = Integer.parseInt(createuse_BookingID.getText());
             int staffID = Integer.parseInt(createuse_StaffID.getText());
@@ -124,18 +114,7 @@ public class CreateCarUseRecordController implements Initializable {
                 alert.showAndWait();
                 ClearForm();
             }
-            // TODO: Determine approach to date/time out and back. 
-            // Currently a value can be captured in the form but goes nowhere, instead current datetime is added for both in and back in the constructor (likely to be wrong).
-            // Maybe a toggle for "make sign out date now and return blank to be entered later" as default?
-                // Jack here, since its asking for two seperate times/dates, I made the assumption that this was entered after the fact and as such left it to the user to input the date. Therefore, I changed both to a string for ease of use.
-                
-            // TODO Validations? Probably only need to check for critical blanks. Parseint errors caught already in catch below. 
-            // Might also need a staff duplication check, or do we just tolerate duplicate entries in this version?
-                // Jack again, I have added a way to check if staff and vehicles are in the system and to only allow an entry if  
-            // TODO: Someone to look at intended usage of the SignOutRecord class and come up with appropriate insertion below
-                // See above.
-            // SignOutRecord newRecord = new SignOutRecord(ARGS);
-            // App.uses.add(newRecord);
+
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("ERROR");

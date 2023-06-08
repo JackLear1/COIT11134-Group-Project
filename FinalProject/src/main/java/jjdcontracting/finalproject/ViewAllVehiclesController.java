@@ -18,25 +18,17 @@ public class ViewAllVehiclesController implements Initializable {
     
     // **** Set Up Tableview Variables **** //
     
-    // Note: For simplicity, variables specific to sub-types are not shown.
+    // For simplicity, variables specific to sub-types are not shown.
     // The user can get these from the individual vehicle view.
     
-    @FXML
-    private TableView<Vehicle> displayVehiclesTable;
-    @FXML
-    private TableColumn<Vehicle, String> displayVehiclesCategory;
-    @FXML
-    private TableColumn<Vehicle, String> displayVehiclesID;
-    @FXML
-    private TableColumn<Vehicle, String> displayVehiclesMake;
-    @FXML
-    private TableColumn<Vehicle, String> displayVehiclesModel;
-    @FXML
-    private TableColumn<Vehicle, Integer> displayVehiclesYear;
-    @FXML
-    private TableColumn<Vehicle, Boolean> displayVehiclesServicedBool;
-    @FXML
-    private ObservableList<Vehicle> vehiclesListener;
+    @FXML private TableView<Vehicle> displayVehiclesTable;
+    @FXML private TableColumn<Vehicle, String> displayVehiclesCategory;
+    @FXML private TableColumn<Vehicle, String> displayVehiclesID;
+    @FXML private TableColumn<Vehicle, String> displayVehiclesMake;
+    @FXML private TableColumn<Vehicle, String> displayVehiclesModel;
+    @FXML private TableColumn<Vehicle, Integer> displayVehiclesYear;
+    @FXML private TableColumn<Vehicle, Boolean> displayVehiclesServicedBool;
+    @FXML private ObservableList<Vehicle> vehiclesListener;
 
     
     @Override
